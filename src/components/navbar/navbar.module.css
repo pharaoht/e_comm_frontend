@@ -1,0 +1,54 @@
+.container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    outline: 1px solid black;
+    height: 60px;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.ulContainer{
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: center;
+    column-gap: 10px;
+    /* Centers all items horizontally in the navbar */
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.liItem{
+    display: flex;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    gap: 5px;
+}
+
+.liItem a {
+  display: flex;
+  align-items: center;
+  text-decoration: none; /* Removes the underline from links */
+}
+
+
+.icon{
+    display: flex;
+    align-items: center;
+    margin-right: 5px;
+}
+
+.gray{
+    background-color: red;
+    flex-shrink: 0;
+}
+
+
+@media (max-width: 600px) {
+    .hide{
+        display: none;
+    }
+}

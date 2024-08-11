@@ -12,10 +12,10 @@ const Navbar = () => {
             {
                 data.map(( itm: linkTypes, idx: number) => {
                     return (
-                        <li key={itm.href} className={styles.liItem}>
+                        <li key={itm.href} className={ styles.liItem}>
                             <Link href={itm.href}>
                                 {
-                                    itm.icon != null && <span className={styles.icon}> {itm.icon} </span>
+                                    itm.icon != null && <span className={itm.specialCondition ? styles.iconConditional : styles.icon}> {itm.icon} </span>
                                 }
                                 <span className={`${styles.labelSpan} ${styles.hide}`} >
                                     {itm.label}
@@ -31,10 +31,10 @@ const Navbar = () => {
 
     return (
         <nav className={styles.container}>
-            <div className={styles.hide}>
+            <div className={''}>
                 { renderLinks(linkData) }
             </div>
-            <div className={''}>
+            <div className={styles.startItem}>
                 <Image src={Logo} alt='logo_p&m' height={60} width={70} priority />
             </div>
             <div className={''}>

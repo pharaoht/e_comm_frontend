@@ -4,4 +4,5 @@ export interface linkTypes {
     href: string,
     label: String,
     icon?:  ReactNode | null
+    specialCondition: boolean;
 }

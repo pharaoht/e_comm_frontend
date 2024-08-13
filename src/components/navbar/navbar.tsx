@@ -93,7 +93,7 @@ const Navbar = () => {
                 <div className={`${styles.sideMenu} ${styles.slideIn} ${styles.iconConditional}`}>
                     <ul className={styles.ulMobileContainer}>
                         { renderMobileLinks(mobileLinks) }
-
+                        { renderMobileLinks(linkData) }
                     </ul>
                 </div>
             }

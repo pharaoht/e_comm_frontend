@@ -31,7 +31,7 @@ import { GetServerSideProps  } from 'next';
 
 
 
-const ProductPage = ({ tops }: {tops: any}) => {
+const ProductPage = () => {
 
 
     return (

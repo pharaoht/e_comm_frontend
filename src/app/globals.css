@@ -6,6 +6,10 @@
     margin: 0;
 }
 
+:root{
+    --grey-light: #F5F5F5;
+}
+
 html,
 body {
     max-width: 100vw;

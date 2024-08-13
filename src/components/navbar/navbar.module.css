@@ -2,12 +2,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    outline: 1px solid black;
     height: 60px;
     padding: 10px;
     padding-left: 20px;
     padding-right: 20px;
     width: 100vw;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .ulContainer{
@@ -15,7 +15,6 @@
     grid-auto-flow: column;
     justify-content: center;
     column-gap: 10px;
-    /* Centers all items horizontally in the navbar */
     list-style-type: none;
     padding: 0;
     margin: 0;
@@ -29,10 +28,14 @@
     gap: 5px;
 }
 
+.liItem:hover{
+    color: #ffd700;
+}
+
 .liItem a {
   display: flex;
   align-items: center;
-  text-decoration: none; /* Removes the underline from links */
+  text-decoration: none;
 }
 
 
@@ -42,13 +45,46 @@
     margin-right: 5px;
 }
 
-.gray{
-    background-color: red;
-    flex-shrink: 0;
-}
-
 .iconConditional {
     display: none;
+}
+
+.sideMenu{
+    position: fixed;
+    top: 60px;
+    left: 0;
+    height: calc(100vh - 60px);
+    width: 100vw;
+    overflow-y: auto;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    z-index: 1000;
+    background-color: #fff;
+}
+
+.ulMobileContainer{
+    display: grid;
+    padding: 20px;
+    row-gap: 25px;
+    list-style-type: none;
+    font-size: 20px;
+}
+
+.mobileContainer{
+    display: grid;
+    width: 100%;
+    column-gap: 10px;
+    padding: 5px;
+}
+
+.imageIc{
+    border-radius: 70px;
+    overflow: hidden;
+}
+
+.hoverEffect:hover {
+    border-radius: 10px;
+    background-color: var(--grey-light);
 }
 
 @media (max-width: 600px) {
@@ -62,4 +98,33 @@
     .startItem{
         flex: 1;
     }
+}
+
+
+@keyframes slideIn {
+    0% {
+        transform: translateY(100%);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideOut {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(100%);
+    }
+}
+
+.sideMenu.slideIn {
+    animation-name: slideIn;
+}
+
+.sideMenu.slideOut {
+    animation-name: slideOut;
 }

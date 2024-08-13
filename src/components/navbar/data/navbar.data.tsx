@@ -1,38 +1,50 @@
 import { linkTypes } from '../types/navbar.types';
-import { ShoppingCart, Person, Favorite, Menu } from '@mui/icons-material';
+import women from '@/images/women.jpg';
+import man from '@/images/man.jpg';
+import { ShoppingCart, Person, Favorite, ArrowForward } from '@mui/icons-material';
 
 export const linkData: Array<linkTypes> = [
     {
         href: '/eco',
         label: 'Sustainability',
-        icon: <Menu fontSize='medium'/>,
-        specialCondition: true
+        icon: null,
     },
     {
         href: '/newsletter',
         label: 'Newsletter',
         icon: null,
-        specialCondition: false,
     }
-];
+] as const;
 
 export const linkDataTwo: Array<linkTypes> = [
     {
         href: '/sign-up',
         label: 'Sign up',
         icon: <Person fontSize='medium'/>,
-        specialCondition: false,
     },
     {
         href: '/favorites',
         label: 'Favorites',
         icon: <Favorite fontSize='small'/>,
-        specialCondition: false,
     },
     {
         href: '/cart',
         label: 'Cart (0)',
         icon: <ShoppingCart fontSize='small'/>,
-        specialCondition: false,
     }
-];
+] as const;
+
+export const mobileLinks: Array<linkTypes> = [
+    {
+        href: '/womens',
+        label: 'Women',
+        icon: <ArrowForward fontSize='medium' />,
+        image: women
+    },
+    {
+        href: '/mens',
+        label: 'Men',
+        icon: <ArrowForward fontSize='medium' />,
+        image: man
+    },
+] as const;

@@ -3,7 +3,8 @@ import { footerHeader, footerLinkTypes } from "../types/footer.types";
 export const footerHeaderKeys = {
     shop: 'Shop',
     corporate: 'Corporate Info',
-    help: 'Help'
+    help: 'Help',
+    member: 'Rewards'
 } as const
 
 export const footerLinks: Array<footerLinkTypes> = [
@@ -28,13 +29,15 @@ export const footerLinks: Array<footerLinkTypes> = [
     { label: 'Our Commitment to Accessibility', href: '/' },
     { label: 'Report a scam', href: '/' },
     { label: 'Cookie Notice', href: '/' },
-    { label: 'Cookie Settings', href: '/' }
+    { label: 'Cookie Settings', href: '/' },
+    { label: 'Join to get 10% off your first order', href:'/'}
 ] as const
 
 export const footerHeaders: Array<footerHeader> = [
     { title: footerHeaderKeys.shop },
     { title: footerHeaderKeys.corporate },
-    { title: footerHeaderKeys.help }
+    { title: footerHeaderKeys.help },
+    { title: footerHeaderKeys.member }
 ] as const
 
 

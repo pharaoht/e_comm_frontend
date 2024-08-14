@@ -23,7 +23,7 @@ const Footer = () => {
         footerHeaders.map((header, idx) => (
             <nav key={idx}>
                 <h3 className={styles.header}>{header.title}</h3>
-                <ul className={styles.ulContainer}>
+                <ul className={`${styles.ulContainer} `}>
                     {groupLinks(header.title).map((link, idx) => (
                         <li key={idx} className={styles.liItem}>
                             <Link href={link.href}>{link.label}</Link>

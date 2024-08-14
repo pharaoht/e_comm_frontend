@@ -29,3 +29,19 @@
 .liItem:hover {
     color: var(--gold);
 }
+
+@media (max-width: 600px) {
+    .hide {
+        display: none;
+    }
+    .ulContainer {
+        gap:7px
+    }
+
+    .information{
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        text-align: center;
+    }
+}

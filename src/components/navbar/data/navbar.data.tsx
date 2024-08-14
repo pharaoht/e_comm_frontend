@@ -1,6 +1,8 @@
 import { linkTypes } from '../types/navbar.types';
 import women from '@/images/women.jpg';
 import man from '@/images/man.jpg';
+import kid from '@/images/kid.jpg';
+import things from '@/images/things.jpg';
 import { ShoppingCart, Person, Favorite, ArrowForward } from '@mui/icons-material';
 
 export const linkData: Array<linkTypes> = [
@@ -51,5 +53,17 @@ export const mobileLinks: Array<linkTypes> = [
         label: 'Men',
         icon: <ArrowForward fontSize='medium' />,
         image: man
+    },
+    {
+        href: '/kids',
+        label: 'Kids',
+        icon: <ArrowForward fontSize='medium' />,
+        image: kid
+    },
+    {
+        href: '/accessories',
+        label: 'Accessories',
+        icon: <ArrowForward fontSize='medium' />,
+        image: things
     },
 ] as const;

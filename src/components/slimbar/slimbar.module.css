@@ -1,0 +1,25 @@
+.container {
+    background-color: #fff;
+    font-weight: 500;
+    cursor: pointer;
+    
+}
+
+.ulContainer{
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    gap: 30px;
+}
+
+.liItem:hover {
+    color: var(--gold);
+}
+
+
+
+@media (max-width: 600px) {
+    .hide {
+        display: none;
+    }
+}

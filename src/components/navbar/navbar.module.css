@@ -29,7 +29,7 @@
 }
 
 .liItem:hover{
-    color: #ffd700;
+    color: var(--gold);
 }
 
 .liItem a {

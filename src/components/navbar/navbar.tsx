@@ -60,44 +60,46 @@ const Navbar = () => {
     )
 
     return (
-        <nav className={styles.container}>
-            <div className={''}>
-                <ul className={styles.ulContainer}>
-                    <li className={`${styles.liItem} ${styles.iconConditional}`}>
-                        <Link href={'/'} legacyBehavior >
-                            <a onClick={toggleSideBar}>
-                                <span className={styles.icon}>
-                                    {
-                                        !showSideBar ?
-                                            <Menu fontSize='medium'/>
-                                        :
-                                            <Close fontSize='medium' />
-                                    }
-                                </span>
-                            </a>
-                        </Link>
-                    </li>
-                    { renderLinks(linkData) }
-                </ul>
-            </div>
-            <div className={styles.startItem}>
-                <Image src={Logo} alt='logo_p&m' height={60} width={70} priority />
-            </div>
-            <div className={''}>
-                <ul className={styles.ulContainer}>
-                    { renderLinks(linkDataTwo) }
-                </ul>
-
-            </div>
-            { showSideBar &&
-                <div className={`${styles.sideMenu} ${styles.slideIn} ${styles.iconConditional}`}>
-                    <ul className={styles.ulMobileContainer}>
-                        { renderMobileLinks(mobileLinks) }
-                        { renderMobileLinks(linkData) }
+        <header>
+            <nav className={styles.container}>
+                <div className={''}>
+                    <ul className={styles.ulContainer}>
+                        <li className={`${styles.liItem} ${styles.iconConditional}`}>
+                            <Link href={'/'} legacyBehavior >
+                                <a onClick={toggleSideBar}>
+                                    <span className={styles.icon}>
+                                        {
+                                            !showSideBar ?
+                                                <Menu fontSize='medium'/>
+                                            :
+                                                <Close fontSize='medium' />
+                                        }
+                                    </span>
+                                </a>
+                            </Link>
+                        </li>
+                        { renderLinks(linkData) }
                     </ul>
                 </div>
-            }
-        </nav>
+                <div className={styles.startItem}>
+                    <Image src={Logo} alt='logo_p&m' height={60} width={70} priority />
+                </div>
+                <div className={''}>
+                    <ul className={styles.ulContainer}>
+                        { renderLinks(linkDataTwo) }
+                    </ul>
+
+                </div>
+                { showSideBar &&
+                    <div className={`${styles.sideMenu} ${styles.slideIn} ${styles.iconConditional}`}>
+                        <ul className={styles.ulMobileContainer}>
+                            { renderMobileLinks(mobileLinks) }
+                            { renderMobileLinks(linkData) }
+                        </ul>
+                    </div>
+                }
+            </nav>
+        </header>
     )
 };
 

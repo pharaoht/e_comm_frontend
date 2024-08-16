@@ -1,0 +1,19 @@
+.container{
+    background-color: var(--beige);
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    letter-spacing: 1px;
+    cursor: default;
+    grid-column: 1 / -1;
+    
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.details{
+    font-size: 13px;
+}

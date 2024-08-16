@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/navbar/navbar";
 import Footer from "@/components/footer/footer";
 import Slimbar from "@/components/slimbar/slimbar";
+import SideBar from "@/components/sidebar/sidebar";
 
 
 export const metadata: Metadata = {
@@ -18,8 +19,10 @@ export default function RootLayout({
   return (
     <html lang="en">
         <body>
-            <Navbar/>
-            <Slimbar/>
+            <header>
+                <Navbar/>
+                <Slimbar/>
+            </header>
             {children}
             <Footer/>
         </body>

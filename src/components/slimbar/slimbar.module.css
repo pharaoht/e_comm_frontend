@@ -2,21 +2,49 @@
     background-color: #fff;
     font-weight: 500;
     cursor: pointer;
-    
+    height: 40px;
 }
 
-.ulContainer{
+.ulContainer {
     display: flex;
     justify-content: center;
+    align-items: center;
     list-style: none;
     gap: 30px;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.liItem {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.buttonStyled {
+    border: 2px solid black;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    outline: none;
+}
+
+.gold{
+    background: var(--beige);
+}
+
+.blank{
+    background: none;
 }
 
 .liItem:hover {
     color: var(--gold);
 }
-
-
 
 @media (max-width: 600px) {
     .hide {

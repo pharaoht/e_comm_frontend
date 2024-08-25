@@ -6,7 +6,7 @@ const getAllCategories = async ( genderId: number, callback: (...args: any) => v
     `${process.env.NEXT_PUBLIC_URL_DOMAIN}api/categories?genderId=${genderId}`;
 
     const reqObj = {
-        url: `${process.env.NEXT_PUBLIC_URL_DOMAIN}api/categories?genderId=${genderId}`,
+        url: url,
         method: 'GET',
     };
 

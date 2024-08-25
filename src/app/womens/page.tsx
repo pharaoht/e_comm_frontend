@@ -2,7 +2,7 @@
 import SideBar from '@/components/sidebar/sidebar';
 import styles from './womens.module.css';
 import { categoryApi } from '@/api/categories/categories.api';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import useHttp from '@/hooks/useHttp';
 import { Category } from '@/components/sidebar/types/sidebar.types';
 
@@ -25,7 +25,9 @@ const WomensPage = () => {
 
     return (
         <div className={styles.container}>
-            <SideBar categories={catagories}/>
+            <Suspense fallback={<div>Loading...</div>}>
+                <SideBar categories={catagories}/>
+            </Suspense>
             <div className={styles.mainContent}>
                WomensPage
 

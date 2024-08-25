@@ -6,7 +6,7 @@ import styles from './navbar.module.css';
 import { linkTypes } from './types/navbar.types';
 import { linkData, linkDataTwo, mobileLinks } from './data/navbar.data';
 import { Menu, Close } from '@mui/icons-material';
-import { MouseEvent, useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 
 const Navbar = () => {
 
@@ -61,7 +61,7 @@ const Navbar = () => {
 
     return (
         <nav className={styles.container}>
-            <div className={''}>
+            <div className={styles.containerChild}>
                 <ul className={styles.ulContainer}>
                     <li className={`${styles.liItem} ${styles.iconConditional}`}>
                         <Link href={'/'} legacyBehavior >
@@ -83,7 +83,7 @@ const Navbar = () => {
             <div className={styles.startItem}>
                 <Image src={Logo} alt='logo_p&m' height={60} width={70} priority />
             </div>
-            <div className={''}>
+            <div className={styles.containerChild}>
                 <ul className={styles.ulContainer}>
                     { renderLinks(linkDataTwo) }
                 </ul>

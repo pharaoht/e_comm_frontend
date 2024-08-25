@@ -1,0 +1,103 @@
+.container {
+    display: grid;
+    flex-direction: column;
+    width: 15%;
+    padding: 10px;
+    gap: 5px;
+    cursor: default;
+}
+
+.ulContainer{
+    display: grid;
+    gap: 5px;
+    list-style: none;
+}
+
+.headerText{
+    font-size: 16px;
+    letter-spacing: 1px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.listText {
+    font-size: 13px;
+    letter-spacing: 1px;
+    font-weight: 500;
+    text-indent: 15px;
+    cursor: pointer;
+    color: grey;
+}
+
+.listText:hover {
+    color: var(--gold);
+}
+
+.active{
+    color: black;
+    font-weight: 600;
+}
+
+.mobileContainer{
+    display: none;
+}
+
+.sbBtn{
+    all: unset;
+    /* Additional styles to make it look like a button again */
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    text-align: inherit;
+    font: inherit;
+    color: inherit;
+    appearance: none;
+}
+
+
+
+@media (max-width: 600px) {
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        width: 100%;
+
+    }
+
+    .hide{
+        display: none;
+    }
+
+    .headerText{
+
+        white-space: nowrap;
+    }
+
+    .mobileUlContainer{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        list-style: none;
+    }
+
+    .listText{
+        white-space: nowrap;
+    }
+
+    .mobileContainer{
+        display: flex;
+    }
+
+    .sbBtn {
+        border: 1px solid black;
+        padding: 3px;
+    }
+
+    .btnActive {
+        background-color: var(--gold);
+    }
+}

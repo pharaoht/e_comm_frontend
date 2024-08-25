@@ -21,11 +21,12 @@ body {
 
 header{
     margin-bottom: 10px;
+    position: fixed;
+    top: 0;
 }
 
 a {
     color: inherit;
     text-decoration: none;
 }
-
 

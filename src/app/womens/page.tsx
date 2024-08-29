@@ -5,6 +5,8 @@ import { categoryApi } from '@/api/categories/categories.api';
 import { Suspense, useEffect, useState } from 'react';
 import useHttp from '@/hooks/useHttp';
 import { Category } from '@/components/sidebar/types/sidebar.types';
+import Banner from '@/components/banner/banner';
+import ProductCard from '@/components/productCard/productCard';
 
 const WomensPage = () => {
     const [ catagories, setCategories ] = useState<Array<Category>>([]);
@@ -29,8 +31,15 @@ const WomensPage = () => {
                 <SideBar categories={catagories}/>
             </Suspense>
             <div className={styles.mainContent}>
-               WomensPage
-
+                <Banner title='15% off $60 or 20% of $100' details='Everything in store'/>
+               Womens Page
+               <div className={styles.products}>
+                    <ProductCard/>
+                    <ProductCard/>
+                    <ProductCard/>
+                    <ProductCard/>
+                    <ProductCard/>
+               </div>
             </div>
         </div>
     )

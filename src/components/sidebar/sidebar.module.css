@@ -1,16 +1,19 @@
 .container {
-    display: grid;
+    display: flex;
     flex-direction: column;
-    width: 15%;
+    width: 17%;
     padding: 10px;
     gap: 5px;
     cursor: default;
+    align-items: flex-start;
+    height: auto;
 }
 
 .ulContainer{
     display: grid;
     gap: 5px;
     list-style: none;
+
 }
 
 
@@ -21,6 +24,10 @@
     text-indent: 15px;
     cursor: pointer;
     color: grey;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
 }
 
 .listText:hover {
@@ -60,6 +67,10 @@
 .btnActive{
     color: var(--gold);
     font-weight: 700;
+}
+
+.wrapperLi{
+    height: 10px;
 }
 
 

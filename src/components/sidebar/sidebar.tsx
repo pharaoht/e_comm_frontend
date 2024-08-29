@@ -32,6 +32,7 @@ const listItem = (
                         category.subCategories.map((listItm) => {
                             return (
                                 <li key={listItm.id} 
+                                    title={listItm.subCategoryName}
                                     className={`${styles.listText} ${String(subcategoryId) == String(listItm.id) && styles.active}`}
                                     onClick={() => updateQueryParams(paraKey, String(listItm.id))}
                                 >

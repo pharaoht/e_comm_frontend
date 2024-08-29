@@ -5,6 +5,13 @@
 
 .mainContent{
     flex-grow: 1;
+    padding: 10px;
+}
+
+.products{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
 }
 
 @media (max-width: 600px) {
@@ -12,5 +19,9 @@
         display: flex;
         flex-direction: column;
         margin-top: 60px;
+    }
+
+    .products{
+        grid-template-columns: repeat(2, 1fr);
     }
 }

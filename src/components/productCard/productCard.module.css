@@ -1,0 +1,17 @@
+.container{
+    border: 1px solid black;
+}
+
+.imageContainer{
+    width: 100%;
+    overflow: hidden;
+}
+
+.imageContainer img{
+    width: 100%;
+    height: 370px;
+}
+.details{
+    display: flex;
+    flex-direction: column;
+}

@@ -13,12 +13,6 @@
     list-style: none;
 }
 
-.headerText{
-    font-size: 16px;
-    letter-spacing: 1px;
-    font-weight: 600;
-    cursor: pointer;
-}
 
 .listText {
     font-size: 13px;
@@ -38,13 +32,16 @@
     font-weight: 600;
 }
 
+.headerText{
+    font-weight: 500;
+}
+
 .mobileContainer{
     display: none;
 }
 
 .sbBtn{
     all: unset;
-    /* Additional styles to make it look like a button again */
     display: inline-block;
     padding: 0;
     margin: 0;
@@ -55,6 +52,14 @@
     font: inherit;
     color: inherit;
     appearance: none;
+    font-size: 16px;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+.btnActive{
+    color: var(--gold);
+    font-weight: 700;
 }
 
 
@@ -95,9 +100,11 @@
     .sbBtn {
         border: 1px solid black;
         padding: 3px;
+        color: black;
     }
 
     .btnActive {
         background-color: var(--gold);
+        color: black;
     }
 }

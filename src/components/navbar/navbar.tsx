@@ -12,7 +12,7 @@ const Navbar = () => {
 
     const [ showSideBar, setShowSideBar ] = useState<boolean>(false);
 
-    const toggleSideBar = ( event: MouseEvent<HTMLAnchorElement> ) => {
+    const toggleSideBar = ( event: MouseEvent<HTMLAnchorElement | HTMLLIElement> ) => {
 
         event.preventDefault();
 
@@ -40,7 +40,7 @@ const Navbar = () => {
     const renderMobileLinks = ( data: Array<linkTypes> ) => (
         data.map((itm, idx) => {
             return (
-                <li key={itm.href} className={`${styles.liItem} ${styles.hoverEffect}`}>
+                <li key={itm.href} className={`${styles.liItem} ${styles.hoverEffect}`} onClick={(event) => toggleSideBar(event)}>
                     <Link className={styles.mobileContainer} href={itm.href}>
                         { itm.image &&
                             <span className={styles.imageIc}>

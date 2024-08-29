@@ -17,5 +17,5 @@ const getAllCategories = async ( genderId: number, callback: (...args: any) => v
 };
 
 export const categoryApi = {
-    getAllCategories,
+    getAllCategories
 }

@@ -7,6 +7,7 @@ import useHttp from '@/hooks/useHttp';
 import { Category } from '@/components/sidebar/types/sidebar.types';
 import Banner from '@/components/banner/banner';
 import ProductCard from '@/components/productCard/productCard';
+import Link from 'next/link';
 
 const WomensPage = () => {
     const [ catagories, setCategories ] = useState<Array<Category>>([]);
@@ -31,10 +32,12 @@ const WomensPage = () => {
                 <SideBar categories={catagories}/>
             </Suspense>
             <div className={styles.mainContent}>
-                <Banner title='15% off $60 or 20% of $100' details='Everything in store'/>
+                <Banner title='15% off $60 or 20% off $100' details='Everything in store'/>
                Womens Page
                <div className={styles.products}>
-                    <ProductCard/>
+                    <Link href='/product/1'>
+                        <ProductCard/>
+                    </Link>
                     <ProductCard/>
                     <ProductCard/>
                     <ProductCard/>

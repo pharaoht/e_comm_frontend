@@ -64,8 +64,12 @@
     cursor: pointer;
 }
 
-.btnActive{
+.sbBtn:hover {
     color: var(--gold);
+}
+
+.btnActive{
+    color: black;
     font-weight: 700;
 }
 

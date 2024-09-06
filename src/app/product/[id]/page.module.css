@@ -1,4 +1,37 @@
 .container {
     display: flex;
     margin-top: 110px;
+    padding: 10px
+}
+
+.leftSide {
+    width: 50%;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.gridItem:nth-child(3n+1) {
+    grid-column: span 2;
+}
+
+.grid img {
+    width: 100%;
+    height: auto;
+}
+
+@media (max-width: 600px) {
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        margin-top: 65px;
+        padding: 0;
+    }
+    .leftSide {
+        width: 100%;
+    }
 }

@@ -13,7 +13,26 @@
     width: 100%;
     height: 400px;
 }
+
 .details{
     display: flex;
     flex-direction: column;
+}
+
+.colorContainer{
+    display: flex;
+    gap: 5px;
+}
+
+.color{
+    width: 15px;
+    border-radius: 50%;
+    border: 1px solid black;
+}
+@media (max-width: 600px) {
+
+    .imageContainer img {
+        width: 100%;
+        height: 350px;
+    }
 }

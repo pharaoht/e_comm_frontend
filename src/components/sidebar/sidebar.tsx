@@ -10,18 +10,23 @@ interface sideBarProps {
 
 const paraKey = 'subCategoryId';
 const paramKey = 'category';
+const paramidkey = 'categoryId'
 
 const listItem = ( 
     category: Category, 
     activeKey: string, 
     setActiveKey: React.Dispatch<React.SetStateAction<string>>, 
-    updateQueryParams: (key: string, value: string, deleteKey?: string | null) => void, 
+    updateQueryParams: (paramToUpdate: Record<string, string>, deleteKey?: string | null) => void, 
     subcategoryId: string | null 
 ) => {
 
     return (
         <>
-            <button className={`${styles.sbBtn} ${activeKey === category.categoryName && styles.btnActive}`} onClick={() => { setActiveKey(category.categoryName); updateQueryParams(paramKey, category.categoryName, paraKey ); }}>
+            <button className={`${styles.sbBtn} ${activeKey === category.categoryName && styles.btnActive}`} 
+                    onClick={() => { 
+                        setActiveKey(category.categoryName); 
+                        updateQueryParams({ category: category.categoryName, categoryId: String(category.categoryId)}, paraKey ); 
+                    }}>
                 <h3 className={`${activeKey === category.categoryName ? styles.btnActive : styles.headerText} `} >
                     { category.categoryName }
                 </h3>
@@ -34,7 +39,7 @@ const listItem = (
                                 <li key={listItm.id} 
                                     title={listItm.subCategoryName}
                                     className={`${styles.listText} ${String(subcategoryId) == String(listItm.id) && styles.active}`}
-                                    onClick={() => updateQueryParams(paraKey, String(listItm.id))}
+                                    onClick={() => updateQueryParams({ subCategoryId: String(listItm.id)})}
                                 >
                                     { listItm.subCategoryName }
                                 </li>
@@ -50,7 +55,7 @@ const listItem = (
 const mobileLinks = (
     category: Category, 
     activeKey: string,
-    updateQueryParams: (key: string, value: string) => void, 
+    updateQueryParams: (paramToUpdate: Record<string, string>) => void, 
     subcategoryId: string | null 
 ) => {
     return (
@@ -61,7 +66,7 @@ const mobileLinks = (
                     return (
                         <li key={listItm.id} 
                             className={`${styles.listText} ${String(subcategoryId) == String(listItm.id) && styles.active}`}
-                            onClick={() => updateQueryParams(paraKey, String(listItm.id))}
+                            onClick={() => updateQueryParams({ subCategoryId: String(listItm.id)})}
                         >
                             { listItm.subCategoryName }
                         </li>
@@ -84,17 +89,25 @@ const SideBar = ({ categories }: sideBarProps) => {
 
     const category = searchParams.get(paramKey);
 
-    const updateQueryParams = (key: string, value: string, deleteKey?: string | null) => {
+    const updateQueryParams = (paramsToUpdate: Record<string, string>, deleteKey?: string | null) => {
 
         const params = new URLSearchParams(window.location.search);
 
-        if(deleteKey == '' && value == '' && key == ''){
+        const isParamsEmpty = Object.entries(paramsToUpdate).every(
+            ([key, value]) => key === '' && value === ''
+        );
+
+        // If paramsToUpdate is empty, reset the URL
+        if (isParamsEmpty) {
             return router.push(window.location.pathname);
         }
 
         if(deleteKey) params.delete(deleteKey);
 
-        if(value !== '') params.set(key, value);
+        Object.entries(paramsToUpdate).forEach(([key, value]) => {
+
+            if(value !== '') params.set(key, value);
+        })
         
         if (!params.toString()) {
             router.push(window.location.pathname);
@@ -115,7 +128,7 @@ const SideBar = ({ categories }: sideBarProps) => {
     return (
         <div className={styles.container}>
             <div>
-                <button  className={`${styles.sbBtn} ${activeList === '' && styles.btnActive}`} onClick={() => { setActiveList(''), updateQueryParams('', '', '')}}>
+                <button  className={`${styles.sbBtn} ${activeList === '' && styles.btnActive}`} onClick={() => { setActiveList(''), updateQueryParams({'':''}, '')}}>
                 <h3 className={`${activeList === '' ? styles.btnActive : styles.headerText} `} >View all</h3>
                 </button>
             </div>

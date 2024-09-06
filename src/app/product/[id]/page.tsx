@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { apiArgs, imagesApi } from '@/api/images/images.api';
 import useHttp from '@/hooks/useHttp';
 import Image from 'next/image';
+import { productApi, productApiArgs } from '@/api/product/products.api';
 
 const baseUrl = process.env.NEXT_PUBLIC_IMAGE_DOMAIN;
 
@@ -25,12 +26,18 @@ const ProductPage = () => {
 
     const { getImagesFromProductId } = imagesApi;
 
+    const { getProductById } = productApi;
+
     useEffect(() => {
 
+        if(!id) return undefined;
+
         const apiObj: apiArgs = { id: id, callback: setImages, httpClient: sendRequest };
+        const apiObj2: productApiArgs = { productId: id, callback: setProduct, httpClient: sendRequest};
 
         Promise.all([
             getImagesFromProductId(apiObj),
+            getProductById(apiObj2),
         ]);
 
     }, [ id ]);

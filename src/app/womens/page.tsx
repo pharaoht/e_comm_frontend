@@ -60,6 +60,7 @@ const WomensPage = () => {
     }, [ nextSearchParams ])
 
     return (
+        <Suspense fallback={<div>Womens Page</div>}>
         <div className={styles.container}>
             <Suspense fallback={<div>Loading...</div>}>
                 <SideBar categories={catagories}/>
@@ -72,6 +73,7 @@ const WomensPage = () => {
                 </Suspense>
             </div>
         </div>
+        </Suspense>
     )
 };
 

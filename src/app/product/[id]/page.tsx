@@ -6,7 +6,7 @@ import { apiArgs, imagesApi } from '@/api/images/images.api';
 import useHttp from '@/hooks/useHttp';
 import Image from 'next/image';
 
-const baseUrl = process.env.NEXT_PUBLIC_URL_DOMAIN;
+const baseUrl = process.env.NEXT_PUBLIC_IMAGE_DOMAIN;
 
 
 const ProductPage = () => {
@@ -53,9 +53,12 @@ const ProductPage = () => {
 
             </div>
             <div className={styles.rightSide}>
+                <div>Title</div>
+                <div>Price</div>
+                <div>Colors</div>
+                <div>Sizes</div>
+                <div>Add to bag</div>
             </div>
-            hi
-            Product id {id}
         </div>
     )
 };

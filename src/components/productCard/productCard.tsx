@@ -4,7 +4,7 @@ import { Product } from '@/containers/productContainer/types/products.types';
 import Link from 'next/link';
 
 //put in env var
-const baseUrl = 'https://res.cloudinary.com/dcrzt1l89/image/upload/v1725234654/'
+const baseUrl = process.env.NEXT_PUBLIC_IMAGE_DOMAIN
 
 const ProductCard = ({ name, productId, price, imageUrl, colorCodes }: Product ) => {
 

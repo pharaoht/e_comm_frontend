@@ -8,6 +8,14 @@
     width: 50%;
 }
 
+.rightSide {
+    width: 50%;
+    padding: 150px;
+    display: flex;
+    flex-direction: column;
+    height: 100vh
+}
+
 .grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -23,7 +31,19 @@
     height: auto;
 }
 
+.noShow{
+    display: none;
+}
+
 @media (max-width: 600px) {
+
+    .hide{
+        display: none;
+    }
+
+    .noShow{
+        display: inline;
+    }
 
     .container {
         display: flex;
@@ -33,5 +53,6 @@
     }
     .leftSide {
         width: 100%;
+        height: 100vh;
     }
 }

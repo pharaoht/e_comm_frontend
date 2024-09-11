@@ -6,17 +6,25 @@ import { apiArgs, imagesApi } from '@/api/images/images.api';
 import useHttp from '@/hooks/useHttp';
 import Image from 'next/image';
 import { productApi, productApiArgs } from '@/api/product/products.api';
+import { Product } from '@/containers/productContainer/types/products.types';
+import { sizeApiArgs, sizesApi } from '@/api/sizes/sizes.api';
+import { ImageType } from '@/types/image/image.type';
+import Carousel from '@/components/carousel/Carousel';
+import { SizeType } from '@/types/size/size.type';
+import Size from '@/components/size/size';
 
 const baseUrl = process.env.NEXT_PUBLIC_IMAGE_DOMAIN;
 
 
 const ProductPage = () => {
 
-    const [ images, setImages ] = useState<any[]>([]);
+    const [ formState, setFormState ] = useState({});
 
-    const [ product, setProduct ] = useState([]);
+    const [ images, setImages ] = useState<Array<ImageType>>([]);
 
-    const [ sizes, setSizes ] = useState([]);
+    const [ product , setProduct ] = useState<Product>({} as Product);
+
+    const [ sizes, setSizes ] = useState<Array<SizeType>>([]);
 
     const { isLoading, sendRequest, error } = useHttp();
     
@@ -28,43 +36,51 @@ const ProductPage = () => {
 
     const { getProductById } = productApi;
 
+    const { getSizes } = sizesApi;
+
     useEffect(() => {
 
         if(!id) return undefined;
 
         const apiObj: apiArgs = { id: id, callback: setImages, httpClient: sendRequest };
-        const apiObj2: productApiArgs = { productId: id, callback: setProduct, httpClient: sendRequest};
+        const apiObj2: productApiArgs = { productId: id, callback: setProduct, httpClient: sendRequest };
+        const apiObj3: sizeApiArgs  = { httpClient: sendRequest, callback: setSizes };
 
         Promise.all([
             getImagesFromProductId(apiObj),
             getProductById(apiObj2),
+            getSizes(apiObj3),
         ]);
 
     }, [ id ]);
-    
+    console.log(sizes)
     return (
         <div className={styles.container}>
             <div className={styles.leftSide}>
-
-                <div className={styles.grid}>
+                <div className={`${styles.grid} ${styles.hide}`}>
                     {
                         images.length > 0 && (
                             images.map((itm) => (
-                                <div key={itm.ImageID} className={styles.gridItem}>
-                                    <Image src={`${baseUrl}${itm.ImageURL}`} alt='photo' height={100} width={100}/>
+                                <div key={itm.imageId} className={styles.gridItem}>
+                                    <Image src={`${baseUrl}${itm.url}`} alt='photo' height={100} width={100}/>
                                 </div>
                             ))
                         )
                     }
                 </div>
+                {  images.length > 0 && (
+                    <div className={`${styles.grid} ${styles.noShow}`}>
+                        <Carousel images={images} />
+                    </div>)
+                }
 
             </div>
             <div className={styles.rightSide}>
-                <div>Title</div>
-                <div>Price</div>
+                <h2>{product.name}</h2>
+                <div>{product.price}</div>
                 <div>Colors</div>
-                <div>Sizes</div>
-                <div>Add to bag</div>
+                <div><Size sizes={sizes}/></div>
+                <div><button>Add to bag</button></div>
             </div>
         </div>
     )

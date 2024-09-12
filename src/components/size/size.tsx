@@ -9,21 +9,21 @@ interface SizeProps {
 const Size = ({ sizes }: SizeProps) => {
 
     return (
-        <div className={styles.container}>
+        <ul className={styles.container}>
             {
                 sizes?.length > 0 ? (
                     sizes.map((itm) => {
                         return (
-                            <span key={itm.sizeId}>
-                                {itm.sizeName}
-                            </span>
+                            <li className={styles.item} key={itm.sizeId}>
+                                {itm.sizeAbr}
+                            </li>
                         )
                     })
                 )
                 :
                 <span>No sizes available</span>
             }
-        </div>
+        </ul>
     )
 };
 

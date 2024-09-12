@@ -11,3 +11,17 @@ export interface Product {
     colorNames: Array<string>,
     imageUrl: string,
 }
+
+export const initialProductState: Product = {
+    productId: 0,
+    name: '',
+    price: '',
+    desc: '',
+    created: '',
+    gender: '',
+    material: '',
+    subCategory: '',
+    colorCodes: [],
+    colorNames: [],
+    imageUrl: '',
+}

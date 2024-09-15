@@ -8,17 +8,19 @@ interface ColorProps {
 const Colors = ({ colors }: ColorProps) => {
 
     return (
-        <div className={styles.container}>
+        <ul className={styles.container}>
             {
                 colors.length > 0 && (
                     colors.map((itm) => (
-                        <span>
-                            {itm.colorName}
-                        </span>
+                        <li key={itm.colorId} className={styles.liContainer}>
+                            <span>
+                                {itm.colorName}
+                            </span>
+                        </li>
                     ))
                 )
             }
-        </div>
+        </ul>
     )
 };
 

@@ -1,24 +1,19 @@
 'use client'
-import { useParams } from 'next/navigation';
-import styles from './page.module.css';
-import { useEffect, useState } from 'react';
-import { apiArgs, imagesApi } from '@/api/images/images.api';
 import useHttp from '@/hooks/useHttp';
-import Image from 'next/image';
+import styles from './page.module.css';
+import Size from '@/components/size/size';
+import { useEffect, useState } from 'react';
+import { useParams } from 'next/navigation';
+import Colors from '@/components/colors/colors';
+import { SizeType } from '@/types/size/size.type';
+import Gallery from '@/components/gallery/gallery';
+import { ImageType } from '@/types/image/image.type';
+import { ColorType } from '@/types/color/color.type';
+import { apiArgs, imagesApi } from '@/api/images/images.api';
+import { sizeApiArgs, sizesApi } from '@/api/sizes/sizes.api';
+import { colorsApi, colorsApiArgs } from '@/api/colors/colors.api';
 import { productApi, productApiArgs } from '@/api/product/products.api';
 import { initialProductState, Product } from '@/containers/productContainer/types/products.types';
-import { sizeApiArgs, sizesApi } from '@/api/sizes/sizes.api';
-import { ImageType } from '@/types/image/image.type';
-import Carousel from '@/components/carousel/Carousel';
-import { SizeType } from '@/types/size/size.type';
-import Size from '@/components/size/size';
-import { colorsApi, colorsApiArgs } from '@/api/colors/colors.api';
-import { ColorType } from '@/types/color/color.type';
-import Colors from '@/components/colors/colors';
-import Gallery from '@/components/gallery/gallery';
-
-const baseUrl = process.env.NEXT_PUBLIC_IMAGE_DOMAIN;
-
 
 const ProductPage = () => {
 
@@ -76,7 +71,7 @@ const ProductPage = () => {
                     <Colors colors={colors}/>
                 </div>
                 <div><Size sizes={sizes}/></div>
-                <div><button>Add to bag</button></div>
+                <div className={styles.btnContainer}><button>Add to bag</button></div>
             </div>
         </div>
     )

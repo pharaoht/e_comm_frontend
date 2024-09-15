@@ -36,6 +36,13 @@
     display: none;
 }
 
+.btnContainer{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    max-height: 25px;
+}
+
 @media (max-width: 600px) {
 
     .hide{
@@ -58,7 +65,7 @@
     }
     .leftSide {
         width: 100%;
-        height: 100vh;
+        height: auto;
     }
 
     .rightSide {

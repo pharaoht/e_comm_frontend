@@ -1,3 +1,4 @@
+import { useHttpType } from "@/hooks/useHttp";
 import { Dispatch, SetStateAction } from "react";
 
 const devDomain = 'localhost:3000';
@@ -5,7 +6,7 @@ const devDomain = 'localhost:3000';
 export type apiArgs = {
     id: string | string[]
     callback: Dispatch<SetStateAction<any[]>>
-    httpClient: (...args: any) => Promise<void>
+    httpClient: ({ requestConfig, callback }: useHttpType) => Promise<void>
 }
 
 const getImagesFromProductId = async ({ id, callback, httpClient }: apiArgs) => {

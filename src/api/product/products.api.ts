@@ -1,3 +1,5 @@
+import { useHttpType } from "@/hooks/useHttp";
+
 const devDomain = 'localhost:3000';
 
 export type productApiArgs = {
@@ -5,7 +7,7 @@ export type productApiArgs = {
     genderId?: string | null | number
     queryParams?: string | null
     callback: (...args: any) => void
-    httpClient: (...args: any) => Promise<void>
+    httpClient: ({ requestConfig, callback }: useHttpType) => Promise<void>
 }
 
 const getProducts = async ({ genderId, queryParams, callback, httpClient }: productApiArgs ) => {

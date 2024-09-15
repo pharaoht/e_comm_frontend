@@ -3,7 +3,6 @@ import "./globals.css";
 import Navbar from "@/components/navbar/navbar";
 import Footer from "@/components/footer/footer";
 import Slimbar from "@/components/slimbar/slimbar";
-import SideBar from "@/components/sidebar/sidebar";
 import { Suspense } from "react";
 
 

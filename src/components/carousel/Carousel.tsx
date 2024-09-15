@@ -15,19 +15,17 @@ const Carousel = ({ images }: CarouselProps ) => {
     const [ currentIndex, setCurrentIndex ] = useState<number>(0);
 
     const nextImage = () => setCurrentIndex((prevState) => ( prevState + 1) % images.length);
-    
+
     return (
         <div className={styles.container}>
-            <div className={styles.imageWrapper}>
-                <Image 
-                    key={currentIndex}
-                    src={`${baseUrl}${images[currentIndex]?.url}`} 
-                    height={100} 
-                    width={80} 
-                    alt="photo_"
-                />
+            <Image 
+                key={currentIndex}
+                src={`${baseUrl}${images[currentIndex]?.url}`} 
+                height={100} 
+                width={100} 
+                alt="photo_"
+            />
             <button className={`${styles.prevBtn} ${styles.btn}`} onClick={nextImage}>{'>'}</button>
-            </div>
         </div> 
     )
 };

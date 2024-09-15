@@ -1,3 +1,5 @@
+import { useHttpType } from "@/hooks/useHttp";
+
 const devDomain = 'localhost:3000';
 const prodDomain = process.env.NEXT_PUBLIC_URL_DOMAIN;
 const resource = 'colors';
@@ -5,7 +7,7 @@ const resource = 'colors';
 export type colorsApiArgs = {
     productId?: string | null | string[]
     callback: (...args: any) => void
-    httpClient: (...args: any) => Promise<void>
+    httpClient: ({ requestConfig, callback }: useHttpType) => Promise<void>
 }
 
 const hostNameDomain = (): string => {
@@ -27,9 +29,9 @@ const getColorsByProductId = async ({ productId, callback, httpClient }: colorsA
         method: 'GET',
     };
 
-    const result = await httpClient({ requestClient: reqObj, callback: callback });
+    const result = await httpClient({ requestConfig: reqObj, callback: callback });
 
-    return result
+    return result;
 }
 
 export const colorsApi = {

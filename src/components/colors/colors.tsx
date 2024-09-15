@@ -9,7 +9,15 @@ const Colors = ({ colors }: ColorProps) => {
 
     return (
         <div className={styles.container}>
-
+            {
+                colors.length > 0 && (
+                    colors.map((itm) => (
+                        <span>
+                            {itm.colorName}
+                        </span>
+                    ))
+                )
+            }
         </div>
     )
 };

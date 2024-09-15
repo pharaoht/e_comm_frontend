@@ -19,7 +19,7 @@ const useHttp = () => {
     const [error, setError] = useState('');
     
     const sendRequest = async ({ requestConfig, callback }: useHttpType) => {
-
+        console.log(requestConfig)
         setIsLoading(true);
 
         setError('');

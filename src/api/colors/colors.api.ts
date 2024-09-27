@@ -27,6 +27,7 @@ const getColorsByProductId = async ({ productId, callback, httpClient }: colorsA
     const reqObj = {
         url: `${url}/${productId}`,
         method: 'GET',
+        withCredentials: true,
     };
 
     const result = await httpClient({ requestConfig: reqObj, callback: callback });

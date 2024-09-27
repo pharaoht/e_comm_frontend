@@ -8,6 +8,7 @@ const getAllCategories = async ( genderId: number, callback: (...args: any) => v
     const reqObj = {
         url: url,
         method: 'GET',
+        withCredentials: true, 
     };
 
     const result = await httpClient({ requestConfig: reqObj, callback: callback });

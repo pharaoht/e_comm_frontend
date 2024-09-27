@@ -14,6 +14,7 @@ const getSizes = async ({ callback, httpClient }: sizeApiArgs) => {
     const reqObj = {
         url: url,
         method: 'GET',
+        withCredentials: true,
     };
 
     const result = await httpClient({ requestConfig: reqObj, callback: callback });

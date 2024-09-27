@@ -72,6 +72,9 @@ const ProductPage = () => {
                 </div>
                 <div><Size sizes={sizes}/></div>
                 <div className={styles.btnContainer}><button>Add to bag</button></div>
+                <div>
+                    <h3>Description</h3>
+                </div>
             </div>
         </div>
     )

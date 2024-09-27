@@ -18,6 +18,7 @@ const getProducts = async ({ genderId, queryParams, callback, httpClient }: prod
     const reqObj = {
         url: url,
         method: 'GET',
+        withCredentials: true,
     };
 
     const result = await httpClient({ requestConfig: reqObj, callback: callback });
@@ -34,6 +35,7 @@ const getProductById = async ({ productId, callback, httpClient }: productApiArg
     const reqObj = {
         url: url,
         method: 'GET',
+        withCredentials: true,
     };
 
     const result = await httpClient({ requestConfig: reqObj, callback: callback });

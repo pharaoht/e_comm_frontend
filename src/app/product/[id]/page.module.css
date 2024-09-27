@@ -10,7 +10,7 @@
 
 .rightSide {
     width: 50%;
-    padding: 150px;
+    padding: 100px;
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -57,15 +57,15 @@
         display: flex;
         flex-grow: 1;
         flex-direction: column;
-        position: relative;
-        margin-top: 0px;
+        margin-top: 60px;
         top: 65px;
         z-index: 0;
         padding: 0;
+        gap: 25px;
     }
     .leftSide {
         width: 100%;
-        height: auto;
+        position: relative;
     }
 
     .rightSide {
@@ -73,7 +73,7 @@
         padding: 15px;
         display: flex;
         flex-direction: column;
-        height: 100vh;
-        gap: 10px
+        gap: 10px;
+        height: auto;
     }
 }

@@ -17,6 +17,7 @@ const getImagesFromProductId = async ({ id, callback, httpClient }: apiArgs) => 
     const reqObj = {
         url: url,
         method: 'GET',
+        withCredentials: true,
     };
 
     const result = await httpClient({ requestConfig: reqObj, callback: callback });

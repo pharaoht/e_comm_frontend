@@ -2,13 +2,14 @@
 import useHttp from '@/hooks/useHttp';
 import styles from './page.module.css';
 import Size from '@/components/size/size';
-import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
+import { cartApi } from '@/api/cart/cart.api';
 import Colors from '@/components/colors/colors';
 import { SizeType } from '@/types/size/size.type';
 import Gallery from '@/components/gallery/gallery';
 import { ImageType } from '@/types/image/image.type';
 import { ColorType } from '@/types/color/color.type';
+import { FormEvent, useEffect, useState } from 'react';
 import { apiArgs, imagesApi } from '@/api/images/images.api';
 import { sizeApiArgs, sizesApi } from '@/api/sizes/sizes.api';
 import { colorsApi, colorsApiArgs } from '@/api/colors/colors.api';
@@ -17,7 +18,11 @@ import { initialProductState, Product } from '@/containers/productContainer/type
 
 const ProductPage = () => {
 
-    const [ formState, setFormState ] = useState({});
+    const [ formState, setFormState ] = useState({
+        productId: '',
+        colorId:'',
+        sizeId:'',
+    });
 
     const [ images, setImages ] = useState<Array<ImageType>>([]);
 
@@ -41,6 +46,24 @@ const ProductPage = () => {
 
     const { getSizes } = sizesApi;
 
+    const { addToCart } = cartApi;
+
+    const addToCartHandler = async ( event: FormEvent<HTMLFormElement> ) => {
+
+        event.preventDefault();
+
+        const result = await addToCart({
+            body: formState,
+            callback: () => {},
+            httpClient: sendRequest
+        });
+
+    };
+
+    const formChangeHandler = ( key: string, value: string ) => {
+
+    };
+
     useEffect(() => {
 
         if(!id) return undefined;
@@ -60,7 +83,7 @@ const ProductPage = () => {
     }, [ id ]);
 
     return (
-        <div className={styles.container}>
+        <form className={styles.container} onSubmit={addToCartHandler}>
             <div className={styles.leftSide}>
                 <Gallery images={images}/>
             </div>
@@ -71,12 +94,14 @@ const ProductPage = () => {
                     <Colors colors={colors}/>
                 </div>
                 <div><Size sizes={sizes}/></div>
-                <div className={styles.btnContainer}><button>Add to bag</button></div>
+                <div className={styles.btnContainer}>
+                    <button type='submit'>Add to cart</button>
+                </div>
                 <div>
                     <h3>Description</h3>
                 </div>
             </div>
-        </div>
+        </form>
     )
 };
 

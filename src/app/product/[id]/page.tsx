@@ -1,5 +1,4 @@
 'use client'
-import useHttp from '@/hooks/useHttp';
 import styles from './page.module.css';
 import Size from '@/components/size/size';
 import { useParams } from 'next/navigation';
@@ -11,7 +10,7 @@ import { ImageType } from '@/types/image/image.type';
 import { ColorType } from '@/types/color/color.type';
 import { FormEvent, useEffect, useState } from 'react';
 import { apiArgs, imagesApi } from '@/api/images/images.api';
-import { sizeApiArgs, sizesApi } from '@/api/sizes/sizes.api';
+import { sizeApiArgs, sizeApi } from '@/api/sizes/sizes.api';
 import { colorsApi, colorsApiArgs } from '@/api/colors/colors.api';
 import { productApi, productApiArgs } from '@/api/product/products.api';
 import { initialProductState, Product } from '@/containers/productContainer/types/products.types';
@@ -31,31 +30,19 @@ const ProductPage = () => {
     const [ sizes, setSizes ] = useState<Array<SizeType>>([]);
 
     const [ colors, setColors ] = useState<Array<ColorType>>([]);
-
-    const { isLoading, sendRequest, error } = useHttp();
     
     const params = useParams();
 
     const { id } = params;
 
-    const { getImagesFromProductId } = imagesApi;
-
-    const { getColorsByProductId } = colorsApi;
-
-    const { getProductById } = productApi;
-
-    const { getSizes } = sizesApi;
-
-    const { addToCart } = cartApi;
-
     const addToCartHandler = async ( event: FormEvent<HTMLFormElement> ) => {
 
         event.preventDefault();
 
-        const result = await addToCart({
+        const result = await cartApi.addToCart({
             body: formState,
             callback: () => {},
-            httpClient: sendRequest
+
         });
 
     };
@@ -68,17 +55,24 @@ const ProductPage = () => {
 
         if(!id) return undefined;
 
-        const apiObj: apiArgs = { id: id, callback: setImages, httpClient: sendRequest };
-        const apiObj2: productApiArgs = { productId: id, callback: setProduct, httpClient: sendRequest };
-        const apiObj3: sizeApiArgs  = { httpClient: sendRequest, callback: setSizes };
-        const apiObj4: colorsApiArgs = {  productId: id, httpClient: sendRequest, callback: setColors };
+        const apiObj: apiArgs = { id: id, callback: setImages };
+        const apiObj2: productApiArgs = { productId: id, callback: setProduct };
+        const apiObj3: sizeApiArgs  = { callback: setSizes };
+        const apiObj4: colorsApiArgs = {  productId: id, callback: setColors };
 
         Promise.all([
-            getImagesFromProductId(apiObj),
-            getProductById(apiObj2),
-            getSizes(apiObj3),
-            getColorsByProductId(apiObj4),
+            imagesApi.getImagesFromProductId(apiObj),
+            productApi.getProductById(apiObj2),
+            sizeApi.getSizes(apiObj3),
+            colorsApi.getColorsByProductId(apiObj4),
         ]);
+
+        return () => {
+            productApi.abort();
+            colorsApi.abort();
+            imagesApi.abort();
+            sizeApi.abort();
+        }
 
     }, [ id ]);
 

@@ -1,28 +1,33 @@
-const devDomain = 'localhost:3000';
+import axios from "axios";
+import BaseApi, { HttpRequestConfig } from "../base.api";
 
 export type sizeApiArgs = {
     callback: (...args: any) => void
-    httpClient: (...args: any) => Promise<void>
 }
 
-const getSizes = async ({ callback, httpClient }: sizeApiArgs) => {
+class SizeApi extends BaseApi {
 
-    const url = devDomain === window.location.host 
-        ? 'http://localhost:8000/api/sizes' 
-        :   `${process.env.NEXT_PUBLIC_URL_DOMAIN}api/sizes`;
+    constructor(){
+        super('sizes', axios)
+    }
 
-    const reqObj = {
-        url: url,
-        method: 'GET',
-        withCredentials: true,
-    };
+    async getSizes({ callback }: sizeApiArgs){
 
-    const result = await httpClient({ requestConfig: reqObj, callback: callback });
+        const url = this.findHostName();
 
-    return result;
+        const reqObj: HttpRequestConfig = {
+            url: url,
+            method: 'GET',
+            withCredentials: true
+        };
+
+        const result = await this.httpRequest({
+            requestConfig: reqObj,
+            callback: callback
+        });
+
+        return result;
+    }
 };
 
-
-export const sizesApi = {
-    getSizes,
-}
+export const sizeApi = new SizeApi();

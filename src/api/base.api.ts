@@ -1,7 +1,8 @@
-import axios, { Axios, AxiosInstance, AxiosRequestConfig } from "axios";
+import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 
 export interface HttpRequestConfig extends AxiosRequestConfig {
     signal?: AbortSignal;
+    body?: any
 }
   
 interface httpType {
@@ -11,11 +12,11 @@ interface httpType {
 
 
 class BaseApi {
-
+    //class and sub class
     protected devDomain: string;
     protected prodDomain: string | undefined;
     protected resource: string;
-
+    //class instance only
     private isLoading: boolean;
     private error: string;
     private abortController: AbortController;
@@ -74,7 +75,19 @@ class BaseApi {
         }
     }
 
-    public formHttpRequest(){}
+    public async formHttpRequest(){
+
+        try{
+
+        }
+        catch(err){
+
+        }
+        finally {
+            this.isLoading = false;
+            this.abortController = new AbortController();
+        }
+    }
 
     public abort(){
         this.abortController.abort();

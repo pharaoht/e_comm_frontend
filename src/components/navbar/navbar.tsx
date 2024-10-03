@@ -8,7 +8,6 @@ import { linkData, linkDataTwo, mobileLinks } from './data/navbar.data';
 import { Menu, Close } from '@mui/icons-material';
 import { MouseEvent, useEffect, useState } from 'react';
 import { cartApi } from '@/api/cart/cart.api';
-import useHttp from '@/hooks/useHttp';
 
 const Navbar = () => {
 
@@ -16,11 +15,9 @@ const Navbar = () => {
 
     const [ cart, setCart ] = useState([]);
 
-    const { isLoading, sendRequest, error } = useHttp();
-
     const getCart = async () => {
 
-        cartApi.getCart({ callback: setCart, httpClient: sendRequest })
+        cartApi.getCart({ callback: setCart })
     }
 
     const toggleSideBar = ( event: MouseEvent<HTMLAnchorElement | HTMLLIElement> ) => {
@@ -76,9 +73,13 @@ const Navbar = () => {
     )
 
     useEffect(() => {
+
         Promise.all([
             getCart(),
         ])
+
+        return () => cartApi.abort();
+
     }, []);
 
     return (

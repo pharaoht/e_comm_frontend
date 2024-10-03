@@ -1,31 +1,35 @@
-import { useHttpType } from "@/hooks/useHttp";
 import { Dispatch, SetStateAction } from "react";
-
-const devDomain = 'localhost:3000';
+import BaseApi, { HttpRequestConfig } from "../base.api";
+import axios from "axios";
 
 export type apiArgs = {
     id: string | string[]
     callback: Dispatch<SetStateAction<any[]>>
-    httpClient: ({ requestConfig, callback }: useHttpType) => Promise<void>
 }
 
-const getImagesFromProductId = async ({ id, callback, httpClient }: apiArgs) => {
+class ImagesApi extends BaseApi {
 
-    const url = window.location.host === devDomain ? `http://localhost:8000/api/images/${id}` :
-    `${process.env.NEXT_PUBLIC_URL_DOMAIN}api/images/${id}`;
+    constructor(){
+        super('images', axios)
+    }
 
-    const reqObj = {
-        url: url,
-        method: 'GET',
-        withCredentials: true,
-    };
+    async getImagesFromProductId({ id, callback }: apiArgs){
 
-    const result = await httpClient({ requestConfig: reqObj, callback: callback });
+        const url = this.findHostName();
 
-    return result;
+        const reqObj: HttpRequestConfig = {
+            url: `${url}/${id}`,
+            method: 'GET',
+            withCredentials: true,
+        };
+
+        const result = await this.httpRequest({
+            requestConfig: reqObj,
+            callback: callback
+        });
+
+        return result;
+    }
 };
 
-
-export const imagesApi = {
-    getImagesFromProductId
-};
+export const imagesApi = new ImagesApi();

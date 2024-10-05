@@ -1,39 +1,35 @@
 import { useHttpType } from "@/hooks/useHttp";
-
-const devDomain = 'localhost:3000';
-const prodDomain = process.env.NEXT_PUBLIC_URL_DOMAIN;
-const resource = 'colors';
+import BaseApi, { HttpRequestConfig } from "../base.api";
+import axios from "axios";
 
 export type colorsApiArgs = {
     productId?: string | null | string[]
     callback: (...args: any) => void
-    httpClient: ({ requestConfig, callback }: useHttpType) => Promise<void>
 }
 
-const hostNameDomain = (): string => {
+class ColorsApi extends BaseApi {
 
-    if(window.location.host === devDomain){
-
-        return `http://localhost:8000/api/${resource}`
+    constructor(){
+        super('colors', axios)
     }
 
-    return `${prodDomain}api/${resource}`
-}
+    async getColorsByProductId({ productId, callback }: colorsApiArgs){
 
-const getColorsByProductId = async ({ productId, callback, httpClient }: colorsApiArgs) => {
+        const url = this.findHostName();
 
-    const url = hostNameDomain();
+        const reqObj: HttpRequestConfig = {
+            url: `${url}/${productId}`,
+            method: 'GET',
+            withCredentials: true,
+        };
+        
+        const result = await this.httpRequest({
+            requestConfig: reqObj,
+            callback: callback
+        });
 
-    const reqObj = {
-        url: `${url}/${productId}`,
-        method: 'GET',
-    };
+        return result;
+    }
+};
 
-    const result = await httpClient({ requestConfig: reqObj, callback: callback });
-
-    return result;
-}
-
-export const colorsApi = {
-    getColorsByProductId
-}
+export const colorsApi = new ColorsApi();

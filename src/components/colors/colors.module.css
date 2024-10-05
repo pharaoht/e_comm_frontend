@@ -1,0 +1,16 @@
+.container{
+    display: flex;
+    list-style: none;
+    gap: 10px;
+    
+}
+
+.liContainer{
+    border: 1px solid black;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.active{
+    background-color: var(--gold);
+}

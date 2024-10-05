@@ -1,47 +1,105 @@
-import { useHttpType } from "@/hooks/useHttp";
-
-const devDomain = 'localhost:3000';
+import BaseApi, { HttpRequestConfig } from "../base.api";
+import axios from "axios";
 
 export type productApiArgs = {
     productId?: string | null | string[]
     genderId?: string | null | number
     queryParams?: string | null
     callback: (...args: any) => void
-    httpClient: ({ requestConfig, callback }: useHttpType) => Promise<void>
+
 }
 
-const getProducts = async ({ genderId, queryParams, callback, httpClient }: productApiArgs ) => {
+class ProductApi extends BaseApi {
 
-    const url = window.location.host === devDomain ? `http://localhost:8000/api/products?genderId=${genderId}${queryParams}` :
-    `${process.env.NEXT_PUBLIC_URL_DOMAIN}api/products?genderId=${genderId}${queryParams}`;
+    constructor(){
+        super('products', axios)
+    }
 
-    const reqObj = {
-        url: url,
-        method: 'GET',
-    };
+    async getProductById({ productId, callback }: productApiArgs){
 
-    const result = await httpClient({ requestConfig: reqObj, callback: callback });
+        try{
 
-    return result;
+            const url = this.findHostName();
 
+            const reqObj: HttpRequestConfig = {
+                url: `${url}/${productId}`,
+                method: 'GET',
+                withCredentials: true,
+            }
+ 
+            const result = await this.httpRequest({
+                requestConfig: reqObj,
+                callback: callback
+            });
+
+            return result;
+        }
+        catch(error){
+            console.error(this.getErrorStatus());
+        }
+    }
+
+    async getProducts({ genderId, queryParams, callback }: productApiArgs){
+
+        try{
+
+            const url = this.findHostName();
+    
+            const reqObj: HttpRequestConfig = {
+                url: `${url}?genderId=${genderId}${queryParams}`,
+                method: 'GET',
+                withCredentials: true,
+            };
+    
+            const result = await this.httpRequest({
+                requestConfig: reqObj,
+                callback: callback
+            });
+    
+            return result;
+        }
+        catch(error){
+            console.error(this.getErrorStatus());
+        }
+    }
 };
 
-const getProductById = async ({ productId, callback, httpClient }: productApiArgs) => {
+export const productApi = new ProductApi();
 
-    const url = window.location.host === devDomain ? `http://localhost:8000/api/products/${productId}` :
-    `${process.env.NEXT_PUBLIC_URL_DOMAIN}api/products/${productId}`;
+// const getProducts = async ({ genderId, queryParams, callback, httpClient }: productApiArgs ) => {
 
-    const reqObj = {
-        url: url,
-        method: 'GET',
-    };
+//     const url = window.location.host === devDomain ? `http://localhost:8000/api/products?genderId=${genderId}${queryParams}` :
+//     `${process.env.NEXT_PUBLIC_URL_DOMAIN}api/products?genderId=${genderId}${queryParams}`;
 
-    const result = await httpClient({ requestConfig: reqObj, callback: callback });
+//     const reqObj = {
+//         url: url,
+//         method: 'GET',
+//         withCredentials: true,
+//     };
 
-    return result;
-};
+//     const result = await httpClient({ requestConfig: reqObj, callback: callback });
 
-export const productApi = {
-    getProducts,
-    getProductById
-}
+//     return result;
+
+// };
+
+// const getProductById = async ({ productId, callback, httpClient }: productApiArgs) => {
+
+//     const url = window.location.host === devDomain ? `http://localhost:8000/api/products/${productId}` :
+//     `${process.env.NEXT_PUBLIC_URL_DOMAIN}api/products/${productId}`;
+
+//     const reqObj = {
+//         url: url,
+//         method: 'GET',
+//         withCredentials: true,
+//     };
+
+//     const result = await httpClient({ requestConfig: reqObj, callback: callback });
+
+//     return result;
+// };
+
+// export const productApi = {
+//     getProducts,
+//     getProductById
+// }

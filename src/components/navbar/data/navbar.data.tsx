@@ -35,7 +35,7 @@ export const linkDataTwo: Array<linkTypes> = [
     },
     {
         href: '/cart',
-        label: 'Cart (0)',
+        label: 'Cart',
         icon: <ShoppingCart fontSize='small'/>,
         image: null,
     }

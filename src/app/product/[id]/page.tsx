@@ -1,28 +1,31 @@
 'use client'
-import { useParams } from 'next/navigation';
 import styles from './page.module.css';
-import { useEffect, useState } from 'react';
+import Size from '@/components/size/size';
+import { useParams } from 'next/navigation';
+import { cartApi } from '@/api/cart/cart.api';
+import Colors from '@/components/colors/colors';
+import { SizeType } from '@/types/size/size.type';
+import Gallery from '@/components/gallery/gallery';
+import { ImageType } from '@/types/image/image.type';
+import { ColorType } from '@/types/color/color.type';
+import { FormEvent, useEffect, useState } from 'react';
 import { apiArgs, imagesApi } from '@/api/images/images.api';
-import useHttp from '@/hooks/useHttp';
-import Image from 'next/image';
+import { sizeApiArgs, sizeApi } from '@/api/sizes/sizes.api';
+import { colorsApi, colorsApiArgs } from '@/api/colors/colors.api';
 import { productApi, productApiArgs } from '@/api/product/products.api';
 import { initialProductState, Product } from '@/containers/productContainer/types/products.types';
-import { sizeApiArgs, sizesApi } from '@/api/sizes/sizes.api';
-import { ImageType } from '@/types/image/image.type';
-import Carousel from '@/components/carousel/Carousel';
-import { SizeType } from '@/types/size/size.type';
-import Size from '@/components/size/size';
-import { colorsApi, colorsApiArgs } from '@/api/colors/colors.api';
-import { ColorType } from '@/types/color/color.type';
-import Colors from '@/components/colors/colors';
-import Gallery from '@/components/gallery/gallery';
-
-const baseUrl = process.env.NEXT_PUBLIC_IMAGE_DOMAIN;
-
 
 const ProductPage = () => {
 
-    const [ formState, setFormState ] = useState({});
+    const params = useParams();
+
+    const { id } = params;
+
+    const [ formState, setFormState ] = useState({
+        productId: String(id) || '',
+        colorId:'',
+        sizeId:'',
+    });
 
     const [ images, setImages ] = useState<Array<ImageType>>([]);
 
@@ -31,41 +34,67 @@ const ProductPage = () => {
     const [ sizes, setSizes ] = useState<Array<SizeType>>([]);
 
     const [ colors, setColors ] = useState<Array<ColorType>>([]);
-
-    const { isLoading, sendRequest, error } = useHttp();
     
-    const params = useParams();
+    const addToCartHandler = async ( e: FormEvent<HTMLFormElement> ) => {
 
-    const { id } = params;
+        e.preventDefault();
 
-    const { getImagesFromProductId } = imagesApi;
+        const result = await cartApi.addToCart({
+            body: formState,
+            callback: () => {},
+        });
 
-    const { getColorsByProductId } = colorsApi;
+        const event = new CustomEvent('itemAddedToBag', { detail: id});
 
-    const { getProductById } = productApi;
+        window.dispatchEvent(event);
 
-    const { getSizes } = sizesApi;
+        setFormState(prev => ({
+            ...prev,
+            sizeId: '',
+            colorId:'',
+        }))
+
+    };
+
+    const formChangeHandler = ( key: string, value: any ): void => {
+
+        setFormState(prev => ({
+            ...prev,
+            [key]: value
+        }));
+
+        return undefined;
+    };
 
     useEffect(() => {
 
         if(!id) return undefined;
 
-        const apiObj: apiArgs = { id: id, callback: setImages, httpClient: sendRequest };
-        const apiObj2: productApiArgs = { productId: id, callback: setProduct, httpClient: sendRequest };
-        const apiObj3: sizeApiArgs  = { httpClient: sendRequest, callback: setSizes };
-        const apiObj4: colorsApiArgs = {  productId: id, httpClient: sendRequest, callback: setColors };
+        const apiObj: apiArgs = { id: id, callback: setImages };
+        const apiObj2: productApiArgs = { productId: id, callback: setProduct };
+        const apiObj3: sizeApiArgs  = { callback: setSizes };
+        const apiObj4: colorsApiArgs = {  productId: id, callback: setColors };
+
+        formChangeHandler('productId', id)
 
         Promise.all([
-            getImagesFromProductId(apiObj),
-            getProductById(apiObj2),
-            getSizes(apiObj3),
-            getColorsByProductId(apiObj4),
+            imagesApi.getImagesFromProductId(apiObj),
+            productApi.getProductById(apiObj2),
+            sizeApi.getSizes(apiObj3),
+            colorsApi.getColorsByProductId(apiObj4),
         ]);
+
+        return () => {
+            productApi.abort();
+            colorsApi.abort();
+            imagesApi.abort();
+            sizeApi.abort();
+        }
 
     }, [ id ]);
 
     return (
-        <div className={styles.container}>
+        <form className={styles.container} onSubmit={addToCartHandler}>
             <div className={styles.leftSide}>
                 <Gallery images={images}/>
             </div>
@@ -73,12 +102,27 @@ const ProductPage = () => {
                 <h2>{product.name}</h2>
                 <p>{product.price}</p>
                 <div>
-                    <Colors colors={colors}/>
+                    <Colors 
+                        colors={colors} 
+                        formChangeHandler={formChangeHandler}
+                        formKey={'colorId'}
+                    />
                 </div>
-                <div><Size sizes={sizes}/></div>
-                <div><button>Add to bag</button></div>
+                <div>
+                    <Size 
+                        sizes={sizes}
+                        formChangeHandler={formChangeHandler}
+                        formKey={'sizeId'}
+                    />
+                </div>
+                <div className={styles.btnContainer}>
+                    <button type='submit'>Add to cart</button>
+                </div>
+                <div>
+                    <h3>Description</h3>
+                </div>
             </div>
-        </div>
+        </form>
     )
 };
 

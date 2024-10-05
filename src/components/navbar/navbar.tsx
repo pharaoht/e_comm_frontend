@@ -7,10 +7,18 @@ import { linkTypes } from './types/navbar.types';
 import { linkData, linkDataTwo, mobileLinks } from './data/navbar.data';
 import { Menu, Close } from '@mui/icons-material';
 import { MouseEvent, useEffect, useState } from 'react';
+import { cartApi } from '@/api/cart/cart.api';
 
 const Navbar = () => {
 
     const [ showSideBar, setShowSideBar ] = useState<boolean>(false);
+
+    const [ cart, setCart ] = useState([]);
+
+    const getCart = async () => {
+
+        cartApi.getCart({ callback: setCart })
+    }
 
     const toggleSideBar = ( event: MouseEvent<HTMLAnchorElement | HTMLLIElement> ) => {
 
@@ -30,6 +38,11 @@ const Navbar = () => {
                         }
                         <span className={`${styles.labelSpan} ${styles.hide}`} >
                             {itm.label}
+                            {
+                                itm.href == '/cart' && (
+                                    ` (${cart.length})`
+                                )
+                            }
                         </span>
                     </Link>
                 </li>
@@ -58,6 +71,22 @@ const Navbar = () => {
             )
         })
     )
+
+    useEffect(() => {
+
+        Promise.all([
+            getCart(),
+        ]);
+
+        window.addEventListener('itemAddedToBag', getCart);
+
+        // Clean up the event listener on component unmount
+        return () => {
+            cartApi.abort();
+            window.removeEventListener('itemAddedToBag', getCart);
+        };
+
+    }, []);
 
     return (
         <nav className={styles.container}>

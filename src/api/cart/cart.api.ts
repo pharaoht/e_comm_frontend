@@ -24,7 +24,7 @@ class CartApi extends BaseApi {
             url: `${url}/add`,
             method: 'POST',
             withCredentials: true,
-            body: body
+            data: body
         };
 
         const result = await this.httpRequest({ requestConfig: reqObj, callback: callback });

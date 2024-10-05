@@ -51,7 +51,11 @@ class BaseApi {
 
             const response = await this.httpClient({
                 ...requestConfig,
-                signal: this.abortController.signal
+                signal: this.abortController.signal,
+                headers : {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
             });
 
             if(response.status !== 200) throw new Error('Request failed');

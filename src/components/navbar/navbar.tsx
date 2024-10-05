@@ -76,9 +76,15 @@ const Navbar = () => {
 
         Promise.all([
             getCart(),
-        ])
+        ]);
 
-        return () => cartApi.abort();
+        window.addEventListener('itemAddedToBag', getCart);
+
+        // Clean up the event listener on component unmount
+        return () => {
+            cartApi.abort();
+            window.removeEventListener('itemAddedToBag', getCart);
+        };
 
     }, []);
 

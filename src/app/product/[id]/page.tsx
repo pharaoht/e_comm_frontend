@@ -17,8 +17,12 @@ import { initialProductState, Product } from '@/containers/productContainer/type
 
 const ProductPage = () => {
 
+    const params = useParams();
+
+    const { id } = params;
+
     const [ formState, setFormState ] = useState({
-        productId: '',
+        productId: String(id) || '',
         colorId:'',
         sizeId:'',
     });
@@ -31,24 +35,35 @@ const ProductPage = () => {
 
     const [ colors, setColors ] = useState<Array<ColorType>>([]);
     
-    const params = useParams();
+    const addToCartHandler = async ( e: FormEvent<HTMLFormElement> ) => {
 
-    const { id } = params;
-
-    const addToCartHandler = async ( event: FormEvent<HTMLFormElement> ) => {
-
-        event.preventDefault();
+        e.preventDefault();
 
         const result = await cartApi.addToCart({
             body: formState,
             callback: () => {},
-
         });
+
+        const event = new CustomEvent('itemAddedToBag', { detail: id});
+
+        window.dispatchEvent(event);
+
+        setFormState(prev => ({
+            ...prev,
+            sizeId: '',
+            colorId:'',
+        }))
 
     };
 
-    const formChangeHandler = ( key: string, value: string ) => {
+    const formChangeHandler = ( key: string, value: any ): void => {
 
+        setFormState(prev => ({
+            ...prev,
+            [key]: value
+        }));
+
+        return undefined;
     };
 
     useEffect(() => {
@@ -59,6 +74,8 @@ const ProductPage = () => {
         const apiObj2: productApiArgs = { productId: id, callback: setProduct };
         const apiObj3: sizeApiArgs  = { callback: setSizes };
         const apiObj4: colorsApiArgs = {  productId: id, callback: setColors };
+
+        formChangeHandler('productId', id)
 
         Promise.all([
             imagesApi.getImagesFromProductId(apiObj),
@@ -85,9 +102,19 @@ const ProductPage = () => {
                 <h2>{product.name}</h2>
                 <p>{product.price}</p>
                 <div>
-                    <Colors colors={colors}/>
+                    <Colors 
+                        colors={colors} 
+                        formChangeHandler={formChangeHandler}
+                        formKey={'colorId'}
+                    />
                 </div>
-                <div><Size sizes={sizes}/></div>
+                <div>
+                    <Size 
+                        sizes={sizes}
+                        formChangeHandler={formChangeHandler}
+                        formKey={'sizeId'}
+                    />
+                </div>
                 <div className={styles.btnContainer}>
                     <button type='submit'>Add to cart</button>
                 </div>

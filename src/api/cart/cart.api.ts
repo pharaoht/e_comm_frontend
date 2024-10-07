@@ -18,18 +18,25 @@ class CartApi extends BaseApi {
 
     async addToCart({ body, callback }: cartApiArgs){
     
-        const url = this.findHostName();
+        try {
+            const url = this.findHostName();
 
-        const reqObj: HttpRequestConfig = {
-            url: `${url}/add`,
-            method: 'POST',
-            withCredentials: true,
-            data: body
-        };
+            const reqObj: HttpRequestConfig = {
+                url: `${url}/add`,
+                method: 'POST',
+                withCredentials: true,
+                data: body
+            };
 
-        const result = await this.httpRequest({ requestConfig: reqObj, callback: callback });
+            const result = await this.httpRequest({ requestConfig: reqObj, callback: callback });
 
-        return result;
+            return result;
+        }
+        catch(error){
+    
+            console.error(this.getErrorStatus());
+
+        }
 
     };
 

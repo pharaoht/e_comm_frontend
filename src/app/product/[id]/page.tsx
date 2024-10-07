@@ -75,8 +75,6 @@ const ProductPage = () => {
         const apiObj3: sizeApiArgs  = { callback: setSizes };
         const apiObj4: colorsApiArgs = {  productId: id, callback: setColors };
 
-        formChangeHandler('productId', id)
-
         Promise.all([
             imagesApi.getImagesFromProductId(apiObj),
             productApi.getProductById(apiObj2),

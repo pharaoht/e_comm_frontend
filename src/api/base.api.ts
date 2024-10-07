@@ -79,23 +79,48 @@ class BaseApi {
         }
     }
 
-    public async formHttpRequest(){
+    public async multiPartHttpRequest({ requestConfig, callback }: httpType){
+       
+        try {
 
-        try{
+            this.isLoading = true;
 
+            this.error = '';
+
+            const response = await this.httpClient({
+                ...requestConfig,
+                signal: this.abortController.signal,
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+
+            if(response.status !== 200) throw new Error('Request failed');
+
+            if(callback !== null) callback(response.data);
         }
-        catch(err){
+        catch(err: any){
 
+            const error = err?.response?.data.error || undefined;
+
+            if(axios.isCancel(err)) return;
+
+            if(err instanceof Error) this.error = error || err.message;
         }
-        finally {
+        finally{
+
             this.isLoading = false;
+    
             this.abortController = new AbortController();
         }
     }
 
     public abort(){
+
         this.abortController.abort();
+
         this.abortController = new AbortController();
+
     }
 
     public getLoadingStatus(): boolean {

@@ -29,6 +29,24 @@ class ColorsApi extends BaseApi {
         });
 
         return result;
+    };
+
+    async getColors({ callback }: colorsApiArgs){
+
+        const url = this.findHostName();
+
+        const reqObj: HttpRequestConfig = {
+            url: url,
+            method:'GET',
+            withCredentials: true
+        };
+
+        const result = await this.httpRequest({
+            requestConfig: reqObj,
+            callback: callback
+        });
+
+        return result;
     }
 };
 

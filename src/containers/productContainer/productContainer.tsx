@@ -3,14 +3,14 @@ import styles from './productContainer.module.css';
 import { Product } from './types/products.types';
 
 interface ProductContainerProps {
-    products: Array<Product>
+    products: Array<Product>;
 }
 
-const ProductContainer = ({ products }: ProductContainerProps) => (
-    <div className={styles.productContainer}>
-        {
-            products && products.length > 0 && (
-                products.map((itm, idx) => (
+const ProductContainer = ({ products }: ProductContainerProps) => {
+    if (products && products.length > 0) {
+        return (
+            <div className={styles.productContainer}>
+                {products.map((itm) => (
                     <ProductCard
                         key={itm.productId}
                         productId={itm.productId}
@@ -25,10 +25,14 @@ const ProductContainer = ({ products }: ProductContainerProps) => (
                         colorCodes={itm.colorCodes}
                         colorNames={itm.colorNames}
                     />
-                ))
-            )
-        }
-    </div>
-);
+                ))}
+            </div>
+        );
+    } else {
+        return (
+            <p className={styles.center}>No items...</p>
+        );
+    }
+};
 
 export default ProductContainer;

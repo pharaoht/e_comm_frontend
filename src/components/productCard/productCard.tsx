@@ -12,7 +12,7 @@ const ProductCard = ({ name, productId, price, imageUrl, colorCodes }: Product )
         <Link href={`/product/${productId}`}>
             <div className={styles.container}>
                 <div className={styles.imageContainer}>
-                    <Image src={`${baseUrl}${imageUrl}`} alt='women' width={100} height={100}/>
+                    <Image src={`${baseUrl}${imageUrl}`} alt='women' width={1000} height={1000}/>
                 </div>
                 <div className={styles.details}>
                     <span>{name}</span>

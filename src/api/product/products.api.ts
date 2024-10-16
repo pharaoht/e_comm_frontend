@@ -6,6 +6,18 @@ export type productApiArgs = {
     genderId?: string | null | number
     queryParams?: string | null
     callback: (...args: any) => void
+    body?: {
+        productName: string
+        subCatId: string,
+        materialId: string,
+        genderId: string,
+        price: string,
+        desc: string,
+        catId: string,
+        colorIds: Array<string>
+        files?: FileList | null
+    }
+    
 
 }
 
@@ -60,6 +72,52 @@ class ProductApi extends BaseApi {
         }
         catch(error){
             console.error(this.getErrorStatus());
+        }
+    }
+
+    async createProduct({ body, callback }: productApiArgs){
+
+        try {
+
+            const url = this.findHostName();
+
+            const formData = new FormData();
+
+            // Use non-null assertion to tell TypeScript that these values are not null or undefined
+            formData.append('productName', body!.productName);
+            formData.append('subCatId', body!.subCatId)
+            formData.append('materialId', body!.materialId);
+            formData.append('genderId', body!.genderId);
+            formData.append('price', body!.price);
+            formData.append('desc', body!.desc);
+            formData.append('catId', body!.catId);
+            formData.append('colorIds', body!.colorIds.join(','));
+
+            if(body?.files){
+
+                for(const photo of body?.files){
+                    formData.append('files', photo);
+                }
+            }
+        
+            const requestConfig = {
+                url: url,
+                method: 'POST',
+                withCredentials: true,
+                data: formData,
+            }
+
+            const result = await this.multiPartHttpRequest({
+                requestConfig: requestConfig,
+                callback: callback,
+            });
+
+            return result;
+        }
+        catch(error){
+            
+            console.error(this.getErrorStatus());
+            
         }
     }
 };

@@ -21,8 +21,8 @@ const Carousel = ({ images }: CarouselProps ) => {
             <Image 
                 key={currentIndex}
                 src={`${baseUrl}${images[currentIndex]?.url}`} 
-                height={100} 
-                width={100} 
+                height={1000} 
+                width={1000} 
                 alt="photo_"
             />
             <button className={`${styles.prevBtn} ${styles.btn}`} onClick={nextImage}>{'>'}</button>

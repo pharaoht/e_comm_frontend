@@ -9,10 +9,10 @@ import Gallery from '@/components/gallery/gallery';
 import { ImageType } from '@/types/image/image.type';
 import { ColorType } from '@/types/color/color.type';
 import { FormEvent, useEffect, useState } from 'react';
-import { apiArgs, imagesApi } from '@/api/images/images.api';
-import { sizeApiArgs, sizeApi } from '@/api/sizes/sizes.api';
-import { colorsApi, colorsApiArgs } from '@/api/colors/colors.api';
-import { productApi, productApiArgs } from '@/api/product/products.api';
+import {  imagesApi } from '@/api/images/images.api';
+import { sizeApi } from '@/api/sizes/sizes.api';
+import { colorsApi } from '@/api/colors/colors.api';
+import { productApi } from '@/api/product/products.api';
 import { initialProductState, Product } from '@/containers/productContainer/types/products.types';
 
 const ProductPage = () => {
@@ -70,16 +70,11 @@ const ProductPage = () => {
 
         if(!id) return undefined;
 
-        const apiObj: apiArgs = { id: id, callback: setImages };
-        const apiObj2: productApiArgs = { productId: id, callback: setProduct };
-        const apiObj3: sizeApiArgs  = { callback: setSizes };
-        const apiObj4: colorsApiArgs = {  productId: id, callback: setColors };
-
         Promise.all([
-            imagesApi.getImagesFromProductId(apiObj),
-            productApi.getProductById(apiObj2),
-            sizeApi.getSizes(apiObj3),
-            colorsApi.getColorsByProductId(apiObj4),
+            imagesApi.getImagesFromProductId({ id: id, callback: setImages }),
+            productApi.getProductById({ productId: id, callback: setProduct }),
+            sizeApi.getSizes({ callback: setSizes }),
+            colorsApi.getColorsByProductId({  productId: id, callback: setColors }),
         ]);
 
         return () => {
@@ -118,6 +113,9 @@ const ProductPage = () => {
                 </div>
                 <div>
                     <h3>Description</h3>
+                    <p style={{whiteSpace: 'pre-wrap' }}>
+                        {product.desc}
+                    </p>
                 </div>
             </div>
         </form>

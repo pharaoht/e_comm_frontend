@@ -29,7 +29,7 @@ const WomensPage = () => {
     useEffect(() => {
 
         Promise.all([
-            categoryApi.getAllCategories({
+            categoryApi.getAllCategoriesByGenderId({
                 genderId: 1,
                 callback: setCategories
             }),

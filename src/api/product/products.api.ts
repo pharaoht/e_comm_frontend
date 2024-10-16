@@ -14,9 +14,10 @@ export type productApiArgs = {
         price: string,
         desc: string,
         catId: string,
-        colorIds: Array<string>,
+        colorIds: Array<string>
+        files?: FileList | null
     }
-    photos?: FileList | null
+    
 
 }
 
@@ -74,7 +75,7 @@ class ProductApi extends BaseApi {
         }
     }
 
-    async createProduct({ body, photos, callback }: productApiArgs){
+    async createProduct({ body, callback }: productApiArgs){
 
         try {
 
@@ -92,9 +93,9 @@ class ProductApi extends BaseApi {
             formData.append('catId', body!.catId);
             formData.append('colorIds', body!.colorIds.join(','));
 
-            if(photos){
+            if(body?.files){
 
-                for(const photo of photos){
+                for(const photo of body?.files){
                     formData.append('files', photo);
                 }
             }

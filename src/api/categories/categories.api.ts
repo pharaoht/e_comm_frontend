@@ -1,8 +1,10 @@
+import categoryDal from '@/dal/categories/categories.dal';
 import BaseApi, { HttpRequestConfig } from '../base.api';
 import axios from 'axios';
 
 export type categoryApiArgs = {
-    genderId: number,
+    genderId?: number | string
+    categoryId?: number | string
     callback: (...args: any) => void
 };
 
@@ -12,7 +14,7 @@ class CategoryApi extends BaseApi {
         super('categories', axios)
     }
 
-    async getAllCategories({ genderId, callback }: categoryApiArgs){
+    async getAllCategoriesByGenderId({ genderId, callback }: categoryApiArgs){
 
         try{
 
@@ -37,6 +39,58 @@ class CategoryApi extends BaseApi {
             console.error(this.getErrorStatus());
         }
     };
+
+    async getCategoriesByGenderId({ genderId, callback}: categoryApiArgs){
+
+        try{
+
+            const url = this.findHostName();
+
+            const reqObj: HttpRequestConfig = {
+                url: `${url}/${genderId}`,
+                method: 'GET',
+                withCredentials: true, 
+            };
+
+            const result = await this.httpRequest({
+                requestConfig: reqObj,
+                callback: (data) => categoryDal.fromDalSelectDropDowns(data, callback)
+            });
+ 
+            return result;
+
+        }
+        catch(error){
+
+            console.error(this.getErrorStatus());
+        }
+    }
+
+    async getSubCategoriesByCategoryId({ categoryId, genderId, callback}: categoryApiArgs){
+
+        try{
+
+            const url = this.findHostName();
+
+            const reqObj: HttpRequestConfig = {
+                url: `${url}/${genderId}/${categoryId}`,
+                method: 'GET',
+                withCredentials: true, 
+            };
+
+            const result = await this.httpRequest({
+                requestConfig: reqObj,
+                callback: (data) => categoryDal.fromDalSelectDropDowns(data, callback)
+            });
+ 
+            return result;
+
+        }
+        catch(error){
+
+            console.error(this.getErrorStatus());
+        }
+    }
 }
 
 export const categoryApi = new CategoryApi();

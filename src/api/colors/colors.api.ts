@@ -1,6 +1,6 @@
-import { useHttpType } from "@/hooks/useHttp";
 import BaseApi, { HttpRequestConfig } from "../base.api";
 import axios from "axios";
+import colorsDal from "@/dal/colors/colors.dal";
 
 export type colorsApiArgs = {
     productId?: string | null | string[]
@@ -43,7 +43,7 @@ class ColorsApi extends BaseApi {
 
         const result = await this.httpRequest({
             requestConfig: reqObj,
-            callback: callback
+            callback: (data) => colorsDal.fromDalSelectDropDowns(data, callback)
         });
 
         return result;

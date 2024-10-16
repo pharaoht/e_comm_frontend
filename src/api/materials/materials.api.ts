@@ -1,5 +1,6 @@
 import axios from "axios";
 import BaseApi, { HttpRequestConfig } from "../base.api";
+import { materialDal } from "@/dal/materials/materials.dal";
 
 
 interface MaterialsApiArgs {
@@ -13,7 +14,7 @@ class MaterialsApi extends BaseApi {
         super('materials', axios)
     };
 
-    async getMaterials({ callback }: MaterialsApiArgs){
+    async getMaterials({ callback }: MaterialsApiArgs) {
 
         const url = this.findHostName();
 
@@ -25,10 +26,14 @@ class MaterialsApi extends BaseApi {
 
         const result = await this.httpRequest({
             requestConfig: reqObj,
-            callback: callback
+            callback: ( data ) => {
+
+                const dal = materialDal.fromDal(data);
+
+                callback(dal);
+            }
         });
 
-        return result;
     };
 };
 

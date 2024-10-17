@@ -1,0 +1,63 @@
+.container {
+    width: 100%;
+    position: relative;
+    display: inline-block;
+}
+
+.button{
+    cursor: pointer;
+}
+
+.floatingBox {
+    margin-top: 10px;
+    position: absolute;
+    top: 100%; /* Positioning it right below the button */
+    left: 0;
+    background-color: white;
+
+    padding: 10px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+    z-index: 1;
+    width: 300px;
+    
+}
+
+.fieldset{
+    padding: 0px;
+}
+
+.legend{
+    cursor: default;
+    padding: 0 5px;
+}
+
+.radioContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin: 5px;
+    list-style: none;
+
+}
+
+.liContainer{
+    display: flex;
+    gap: 5px;
+    padding: 5px;
+}
+
+.liContainer:hover{
+
+    background-color: #f0f0f0;
+}
+
+
+@media (max-width: 800px) {
+    .container {
+        display: block;
+    }
+    .floatingBox {
+       width: calc(100vw - 35px);
+       
+    }
+}

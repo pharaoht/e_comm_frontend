@@ -1,19 +1,29 @@
+import { useRouter } from 'next/navigation';
 import styles from './filter.module.css';
+import Sort from './sort/sort';
+
+const paramKey = 'sortBy'
 
 const Filter = () => {
 
+    const router = useRouter();
+
+    const updateQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+        const value = event.target.value;
+
+        const params = new URLSearchParams(window.location.search);
+
+        params.set(paramKey, value);
+       
+        router.replace(`${window.location.pathname}?${params.toString()}`);
+
+    };
+
     return (
         <div className={styles.container}>
-            <div >
-                <button className={styles.btn}>
-                    <span>Sort by</span>
-                </button>
-            </div>
-            <div>
-                <button>
-                    <span>Filter by</span>
-                </button>
-            </div>
+            <Sort formChangeHandler={updateQuery}/>
+            <button>hi</button>
         </div>
     )
 };

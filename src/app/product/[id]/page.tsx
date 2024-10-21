@@ -48,12 +48,6 @@ const ProductPage = () => {
 
         window.dispatchEvent(event);
 
-        setFormState(prev => ({
-            ...prev,
-            sizeId: '',
-            colorId:'',
-        }))
-
     };
 
     const formChangeHandler = ( key: string, value: any ): void => {

@@ -26,7 +26,7 @@ const RadioFormInput = ({ formChangeHandler, formObject, isDefaultChecked }: Rad
                 value={formObject.value}
                 title={formObject.title}
                 defaultChecked={isDefaultChecked ?? false}
-                onChange={formChangeHandler}
+                onChange={(event) => formChangeHandler(event)}
 
             />
             <label htmlFor={formObject.htmlFor} className={styles.label}>{formObject.text}</label>

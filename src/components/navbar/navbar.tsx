@@ -8,12 +8,15 @@ import { linkData, linkDataTwo, mobileLinks } from './data/navbar.data';
 import { Menu, Close } from '@mui/icons-material';
 import { MouseEvent, useEffect, useState } from 'react';
 import { cartApi } from '@/api/cart/cart.api';
+import Cart, { CartType } from '../cart/cart';
 
 const Navbar = () => {
 
     const [ showSideBar, setShowSideBar ] = useState<boolean>(false);
 
-    const [ cart, setCart ] = useState([]);
+    const [ showCart, setShowCart ] = useState<boolean>(false);
+
+    const [ cart, setCart ] = useState<CartType[]>([]);
 
     const getCart = async () => {
 
@@ -31,7 +34,12 @@ const Navbar = () => {
     const renderLinks = ( data: Array<linkTypes> ) => (
         data.map(( itm: linkTypes, idx: number) => {
             return (
-                <li key={itm.href} className={`${styles.liItem}`} onClick={itm.onClickHandler}>
+
+                <li key={itm.href} className={`${styles.liItem} `} 
+                    onClick={itm.onClickHandler}
+                    onMouseEnter={itm.href === '/cart' ? () => setShowCart(true) : ()=> {}}
+                    
+                >
                     <Link href={itm.href}>
                         {
                             itm.icon != null && <span className={styles.icon}> {itm.icon} </span>
@@ -39,12 +47,14 @@ const Navbar = () => {
                         <span className={`${styles.labelSpan} ${styles.hide}`} >
                             {itm.label}
                             {
-                                itm.href == '/cart' && (
-                                    ` (${cart.length})`
+                                itm.href == '/cart' && cart.length > 1 && (
+                                    ` (${cart[0].totalItems})`
+                                    
                                 )
                             }
                         </span>
                     </Link>
+
                 </li>
             )
         })
@@ -88,8 +98,9 @@ const Navbar = () => {
 
     }, []);
 
+
     return (
-        <nav className={styles.container}>
+        <nav className={styles.container} onMouseLeave={() => setShowCart(false)} >
             <div className={styles.containerChild}>
                 <ul className={styles.ulContainer}>
                     <li className={`${styles.liItem} ${styles.iconConditional}`}>
@@ -112,9 +123,10 @@ const Navbar = () => {
             <div className={styles.startItem}>
                 <Image src={Logo} alt='logo_p&m' height={60} width={70} priority />
             </div>
-            <div className={styles.containerChild}>
-                <ul className={styles.ulContainer}>
+            <div className={styles.containerChild} >
+                <ul className={styles.ulContainer} >
                     { renderLinks(linkDataTwo) }
+                    { showCart && <Cart cartData={cart} /> }
                 </ul>
 
             </div>

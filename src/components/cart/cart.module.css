@@ -1,0 +1,79 @@
+.floatingBox {
+    border: 1px solid black;
+    position: absolute;
+    top: calc(100% - 10px); /* Positioning it right below the button */
+    right: calc(1% + 5px);
+    background-color: white;
+    padding: 10px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+    z-index: 1;
+    width: 400px;
+    margin-right: 10px;
+    display: grid;
+    gap: 10px;
+
+    height: 550px;
+}
+
+.overFlow{
+   overflow-y: scroll;
+}
+.btn{
+    padding: .5em;
+    display: block;
+    width: 100%;
+    margin: 5px 0;
+
+}
+.container{
+    display: flex;
+    
+}
+
+.leftSide{
+    width: 30%;
+}
+
+.rightSide{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    gap: 5px;
+}
+
+.details {
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* Adds space between rows */
+}
+
+.detailLabel{
+    width: 75px;
+}
+
+.detailRow {
+    display: flex;
+    font-size: 14px;
+}
+
+@media (max-width: 700px) {
+
+
+    .floatingBox{
+        border: 1px solid black;
+        position: absolute;
+        top: calc(100% + 5px); /* Positioning it right below the button */
+        right: calc(0% + 10px);
+        left: calc(0% + 5px);;
+        background-color: white;
+        padding: 10px;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+        z-index: 1;
+        width: calc(100vw - 25px);
+        margin-right: 10px;
+        display: grid;
+        gap: 10px;
+    
+        height: calc(100vh - 70px);
+    }
+}

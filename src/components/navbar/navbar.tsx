@@ -47,7 +47,7 @@ const Navbar = () => {
                         <span className={`${styles.labelSpan} ${styles.hide}`} >
                             {itm.label}
                             {
-                                itm.href == '/cart' && cart.length > 1 && (
+                                itm.href == '/cart' && cart.length > 0 && (
                                     ` (${cart[0].totalItems})`
                                     
                                 )

@@ -32,7 +32,7 @@ const Cart = ({ cartData }: CartProps) => {
         <div className={styles.floatingBox}>
             <div className={styles.overFlow}>
             {
-                cartData.length > 0 && (
+                cartData.length > 0 ? (
                     cartData.map((itm, idx) => {
 
                         return (
@@ -72,13 +72,20 @@ const Cart = ({ cartData }: CartProps) => {
                     })
                 
                 )
+                : 
+                <div style={{textAlign: 'center'}}>
+                    So empty...
+                </div>
             }
             </div>
-            <h3>Total: { cartData.length > 0 && cartData[0].total }</h3>
-            <div className={styles.btnContainer}>
-                <button className={styles.btn}>Checkout</button>
-                <button className={styles.btn}>Shopping bag</button>
-            </div>
+            {   cartData.length > 0 && <>
+                <h3>Total: { cartData.length > 0 && cartData[0].total }</h3>
+                <div className={styles.btnContainer}>
+                    <button className={styles.btn}>Checkout</button>
+                    <button className={styles.btn}>Shopping bag</button>
+                </div>
+                </>
+            }   
         </div>
     )
 };

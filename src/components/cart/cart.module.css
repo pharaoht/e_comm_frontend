@@ -12,11 +12,11 @@
     display: grid;
     gap: 10px;
 
-    height: 550px;
+    max-height: 550px;
 }
 
 .overFlow{
-   overflow-y: scroll;
+   overflow-y: auto;
 }
 .btn{
     padding: .5em;

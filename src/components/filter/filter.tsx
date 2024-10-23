@@ -1,4 +1,4 @@
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import styles from './filter.module.css';
 import Sort from './sort/sort';
 
@@ -7,6 +7,10 @@ const paramKey = 'sortBy'
 const Filter = () => {
 
     const router = useRouter();
+
+    const searchParams = useSearchParams();
+
+    const sortByValues = searchParams.get(paramKey);
 
     const updateQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
 
@@ -22,7 +26,7 @@ const Filter = () => {
 
     return (
         <div className={styles.container}>
-            <Sort formChangeHandler={updateQuery}/>
+            <Sort formChangeHandler={updateQuery} paramValue={sortByValues || ''}/>
             <button>hi</button>
         </div>
     )

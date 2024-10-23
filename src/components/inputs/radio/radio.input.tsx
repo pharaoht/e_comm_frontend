@@ -12,10 +12,11 @@ interface RadioInputProps {
         text: string
     }
     isDefaultChecked?: boolean
+    isChecked: boolean
 
 }
 
-const RadioFormInput = ({ formChangeHandler, formObject, isDefaultChecked }: RadioInputProps ) => {
+const RadioFormInput = ({ formChangeHandler, formObject, isDefaultChecked, isChecked }: RadioInputProps ) => {
 
     return (
         <>
@@ -27,7 +28,7 @@ const RadioFormInput = ({ formChangeHandler, formObject, isDefaultChecked }: Rad
                 title={formObject.title}
                 defaultChecked={isDefaultChecked ?? false}
                 onChange={(event) => formChangeHandler(event)}
-
+                checked={isChecked}
             />
             <label htmlFor={formObject.htmlFor} className={styles.label}>{formObject.text}</label>
         </>

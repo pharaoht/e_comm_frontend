@@ -5,10 +5,10 @@ import RadioFormInput from '@/components/inputs/radio/radio.input';
 
 interface SortProps {
     formChangeHandler: (...args: any) => void
-
+    paramValue: string;
 }
 
-const Sort = ({ formChangeHandler }: SortProps) => {
+const Sort = ({ formChangeHandler, paramValue }: SortProps) => {
 
     const [ isOpen, setIsOpen ] = useState<boolean>(false);
 
@@ -24,7 +24,7 @@ const Sort = ({ formChangeHandler }: SortProps) => {
             </button>
             {
                 isOpen && (
-                    <form className={styles.floatingBox}>
+                    <form className={styles.floatingBox} onMouseLeave={() => setIsOpen(false)}>
                         <fieldset className={styles.fieldset}>
                             <legend className={styles.legend}>Sort by</legend>
                             <ul className={styles.radioContainer}>
@@ -33,14 +33,14 @@ const Sort = ({ formChangeHandler }: SortProps) => {
                                         formObject={h.default}
                                         formChangeHandler={formChangeHandler}
                                         isDefaultChecked={true}
-   
+                                        isChecked={paramValue == h.default.value}
                                     />
                                 </li>
                                 <li className={styles.liContainer}>
                                     <RadioFormInput 
                                         formObject={h.newest}
                                         formChangeHandler={formChangeHandler}
-
+                                        isChecked={paramValue == h.newest.value}
 
                                     />
                                 </li>
@@ -48,7 +48,7 @@ const Sort = ({ formChangeHandler }: SortProps) => {
                                     <RadioFormInput 
                                         formObject={h.lowPrice}
                                         formChangeHandler={formChangeHandler}
-
+                                        isChecked={paramValue == h.lowPrice.value}
 
                                     />
                                 </li>
@@ -56,7 +56,7 @@ const Sort = ({ formChangeHandler }: SortProps) => {
                                     <RadioFormInput 
                                         formObject={h.highPrice}
                                         formChangeHandler={formChangeHandler}
-
+                                        isChecked={paramValue == h.highPrice.value}
                                     />
                                 </li>
                             </ul>

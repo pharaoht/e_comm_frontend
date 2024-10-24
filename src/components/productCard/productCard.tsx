@@ -17,7 +17,7 @@ const ProductCard = ({ name, productId, price, imageUrl, colorCodes }: Product )
                 </div>
                 <div className={styles.details}>
                     <span>{name}</span>
-                    <span>${price}</span>
+                    <span>{price}</span>
                     <div className={styles.colorContainer}>
                         {
                             colorCodes.length > 0 && 

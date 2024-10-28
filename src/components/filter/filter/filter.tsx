@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 import styles from './filter.module.css';
-import { ColorType } from '@/types/color/color.type';
-import { SizeType } from '@/types/size/size.type';
 import { colorsApi } from '@/api/colors/colors.api';
 import { sizeApi } from '@/api/sizes/sizes.api';
 import { materialsApi } from '@/api/materials/materials.api';
@@ -34,12 +32,12 @@ const FilterBtn = () => {
         <li className={styles.liContainer} onClick={() => setActiveTab(index)}>
             <span>{label}</span>
             { activeTab == index &&
-                <ul>
+                <ul className={styles.checkBxContainer}>
                     {
                         data.map((itm: any) => (
-                            <li key={itm.colorId}>
-                                <input type='checkbox' id='news' name='news' value={itm.id}/>
-                                <label htmlFor="news">{itm.displayName}</label>
+                            <li key={itm.value} className={styles.centerCb}>
+                                <input className={styles.checkbox} type='checkbox' id={itm.displayName} name={itm.radioName} value={itm.value}/>
+                                <label htmlFor={itm.displayName}>{itm.displayName}</label>
                             </li>
                         ))
                     }
@@ -52,7 +50,7 @@ const FilterBtn = () => {
 
         Promise.all([
             colorsApi.getColors({ callback: setColors, isDropDown: true }),
-            sizeApi.getSizes({ callback: setSizes}),
+            sizeApi.getSizes({ callback: setSizes, isDropDown: true }),
             materialsApi.getMaterials({ callback: setMaterials, isDropDown: true })
         ]);
 
@@ -69,9 +67,9 @@ const FilterBtn = () => {
         return () => {
             setActiveTab(0)
         }
+
     }, [isOpen])
 
-    console.log(materials)
     return (
         <div className={styles.container}>
             <button
@@ -88,8 +86,8 @@ const FilterBtn = () => {
                         <fieldset className={styles.fieldset}>
                             <legend className={styles.legend}>Filter by</legend>
                             <ul className={styles.radioContainer}>
-                                { subFilter('Colors', colors, 1) }
                                 { subFilter('Sizes', sizes, 2)}
+                                { subFilter('Colors', colors, 1) }
                                 { subFilter('Materials', materials, 3)}
                             </ul> 
                         </fieldset>

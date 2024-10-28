@@ -17,7 +17,36 @@
     padding: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     z-index: 1;
-    width: 300px; /* Adjust width as needed */
+    width: 300px;
     max-width: calc(100vw - 20px); /* Ensure it doesn't exceed viewport width with a small margin */
     overflow: auto;
+}
+
+.radioContainer{
+    list-style: none;
+    max-height: 300px;
+    overflow-y: scroll;
+}
+
+.liContainer{
+    margin: 5px 10px;
+}
+
+.centerCb {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox {
+    margin-right: 5px; /* Optional spacing */
+}
+
+.checkBxContainer{
+    list-style: none;
+    margin: 5px 10px;
+}
+
+.legend{
+    cursor: default;
+    padding: 0 5px;
 }

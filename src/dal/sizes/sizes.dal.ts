@@ -15,6 +15,20 @@ class SizeDal extends BaseDALService<SizeDalType>{
     protected getDisplayValueKey(): string {
         return 'sizeName'
     }
+
+    protected fromDalSelectDropDowns(data: SizeDalType[]): { value: any; displayName: any; }[] {
+        
+        const dal = data.map((itm) => {
+
+            return {
+                value: itm.sizeId,
+                displayName: itm.sizeName.replace('/', ''),
+                radioName: 'size'
+            }
+        });
+
+        return dal
+    }
 }
 
 export default SizeDal;

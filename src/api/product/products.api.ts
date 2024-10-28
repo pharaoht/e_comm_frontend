@@ -26,7 +26,7 @@ class ProductApi extends BaseApi<ProductDalType> {
         super('products', axios, new ProductDal())
     }
 
-    async getProductById({ productId, callback }: productApiArgs){
+    public async getProductById({ productId, callback }: productApiArgs){
 
         try{
 

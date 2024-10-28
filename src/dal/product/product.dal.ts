@@ -4,7 +4,6 @@ export type ProductDalType = {
 
 }
 
-
 class ProductDal extends BaseDALService<ProductDalType> {
 
     protected getValueKey(): string {

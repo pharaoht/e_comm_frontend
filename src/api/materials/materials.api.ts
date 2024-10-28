@@ -1,22 +1,25 @@
 import axios from "axios";
 import BaseApi, { HttpRequestConfig } from "../base.api";
-import { materialDal } from "@/dal/materials/materials.dal";
+import MaterialsDal from "@/dal/materials/materials.dal";
 
 
 interface MaterialsApiArgs {
     materialId?: string
     callback: (...args: any) => void
+    isDropDown?: boolean
 }
 
-class MaterialsApi extends BaseApi {
+class MaterialsApi extends BaseApi<MaterialsDal> {
 
     constructor(){
-        super('materials', axios)
+        super('materials', axios, new MaterialsDal())
     };
 
-    async getMaterials({ callback }: MaterialsApiArgs) {
+    async getMaterials({ callback, isDropDown }: MaterialsApiArgs) {
 
         const url = this.findHostName();
+
+        const useDal = isDropDown || false;
 
         const reqObj: HttpRequestConfig = {
             url: url,
@@ -26,12 +29,8 @@ class MaterialsApi extends BaseApi {
 
         const result = await this.httpRequest({
             requestConfig: reqObj,
-            callback: ( data ) => {
-
-                const dal = materialDal.fromDal(data);
-
-                callback(dal);
-            }
+            callback: callback,
+            isDropDown: useDal
         });
 
     };

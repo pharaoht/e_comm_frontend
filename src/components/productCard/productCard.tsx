@@ -13,7 +13,7 @@ const ProductCard = ({ name, productId, price, imageUrl, colorCodes }: Product )
             <div className={styles.container}>
                 <div className={styles.imageContainer}>
                     <Image src={`${baseUrl}${imageUrl}`} alt='women' width={1000} height={1000}/>
-                    <div className={styles.imageOverlay}>{name}</div>
+                    {/* <div className={styles.imageOverlay}>{name}</div> */}
                 </div>
                 <div className={styles.details}>
                     <span>{name}</span>

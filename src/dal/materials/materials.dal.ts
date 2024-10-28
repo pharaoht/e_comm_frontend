@@ -14,6 +14,22 @@ class MaterialsDal extends BaseDALService<MaterialDalType> {
     protected getDisplayValueKey(): string {
         return 'materialName';
     }
+
+    //method override
+    protected fromDalSelectDropDowns(data: MaterialDalType[]): { value: any; displayName: any; }[] {
+        
+        const dal = data.map((itm) => {
+
+            return {
+                value: itm.id,
+                displayName: itm.materialName.replace('_', ' '),
+                radioName: 'material'
+
+            }
+        })
+
+        return dal;
+    }
 }
 
 export default MaterialsDal;

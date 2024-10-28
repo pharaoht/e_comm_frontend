@@ -6,7 +6,7 @@ export interface HttpRequestConfig extends AxiosRequestConfig {
     body?: any
 }
   
-interface httpType {
+export interface httpType {
     requestConfig: HttpRequestConfig;
     callback: (data: any) => void;
     isDropDown?: boolean;

@@ -1,16 +1,17 @@
 import { Dispatch, SetStateAction } from "react";
 import BaseApi, { HttpRequestConfig } from "../base.api";
 import axios from "axios";
+import ImagesDal, { ImagesDalType } from "@/dal/images/images.dal";
 
 export type apiArgs = {
     id: string | string[]
     callback: Dispatch<SetStateAction<any[]>>
 }
 
-class ImagesApi extends BaseApi {
+class ImagesApi extends BaseApi<ImagesDalType> {
 
     constructor(){
-        super('images', axios)
+        super('images', axios, new ImagesDal)
     }
 
     async getImagesFromProductId({ id, callback }: apiArgs){

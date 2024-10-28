@@ -71,9 +71,32 @@
         z-index: 1;
         width: calc(100vw - 25px);
         margin-right: 10px;
-        display: grid;
+        display:flow-root;
         gap: 10px;
     
         height: calc(100vh - 70px);
+    }
+}
+
+@media (max-width: 400px) {
+    .leftSide{
+        width: 40%;
+    }
+    .rightSide{
+        font-size: 12px;
+        width: 60%;
+    }
+    .rightSide h3{
+        display: inline;
+    }
+
+}
+@media (max-width: 300px){
+    .detailLabel{
+        display: none;
+    }
+
+    .rightSide h3{
+        display: inline;
     }
 }

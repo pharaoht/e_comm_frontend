@@ -1,8 +1,12 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import styles from './filter.module.css';
 import Sort from './sort/sort';
+import FilterBtn from './filter/filter';
 
-const paramKey = 'sortBy'
+const paramKey = 'sortBy';
+const paramKeyColor = 'color';
+const paramKeySize = 'size';
+const paramKeyMaterial = 'material';
 
 const Filter = () => {
 
@@ -24,10 +28,13 @@ const Filter = () => {
 
     };
 
+    
+
+
     return (
         <div className={styles.container}>
             <Sort formChangeHandler={updateQuery} paramValue={sortByValues || ''}/>
-            <button>hi</button>
+            <FilterBtn/>
         </div>
     )
 };

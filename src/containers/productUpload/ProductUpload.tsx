@@ -74,7 +74,7 @@ const ProductUpload = () => {
         const value = event.target.value;
         const file = event.target instanceof HTMLInputElement && event.target.files ? event.target.files : null;
         
-
+        console.log(event.target.value, event.target.name)
         setFormState(prevState => {
             const updatedArray = formState.colorIds.includes(value)
                 ? formState.colorIds.filter(itm => itm !== value)
@@ -106,8 +106,8 @@ const ProductUpload = () => {
     useEffect(() => {
 
         Promise.all([
-            colorsApi.getColors({ callback: setColors }),
-            materialsApi.getMaterials({ callback: setMaterials }),
+            colorsApi.getColors({ callback: setColors, isDropDown: true }),
+            materialsApi.getMaterials({ callback: setMaterials, isDropDown: true }),
         ]);
         
         return () => {
@@ -167,8 +167,7 @@ const ProductUpload = () => {
 
 
     },[formState.catId]);
-    
-
+    console.log(categories)
     return (
         <form onSubmit={handleSubmit} encType='multipart/form-data'>
             <div>

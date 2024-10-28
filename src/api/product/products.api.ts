@@ -1,3 +1,4 @@
+import ProductDal, { ProductDalType } from "@/dal/product/product.dal";
 import BaseApi, { HttpRequestConfig } from "../base.api";
 import axios from "axios";
 
@@ -17,14 +18,12 @@ export type productApiArgs = {
         colorIds: Array<string>
         files?: FileList | null
     }
-    
-
 }
 
-class ProductApi extends BaseApi {
+class ProductApi extends BaseApi<ProductDalType> {
 
     constructor(){
-        super('products', axios)
+        super('products', axios, new ProductDal())
     }
 
     async getProductById({ productId, callback }: productApiArgs){

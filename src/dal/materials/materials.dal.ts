@@ -1,28 +1,19 @@
-import { DropdownItem } from "@/components/inputs/select/select";
+import BaseDALService from "../baseDal";
 
-interface ApiMaterialData {
-    id: string,
+export type MaterialDalType = {
+    id: string
     materialName: string
 }
 
-class MaterialsDal {
+class MaterialsDal extends BaseDALService<MaterialDalType> {
 
-    constructor(){
-
+    protected getValueKey(): string {
+        return 'id';
     }
 
-    fromDal( data: Array<ApiMaterialData> ): Array<DropdownItem>{
-
-        const dal = data.map((itm, idx) => {
-
-            return{
-                value: itm.id,
-                displayName: itm.materialName
-            }
-        })
-
-        return dal;
-    };
+    protected getDisplayValueKey(): string {
+        return 'materialName';
+    }
 }
 
-export const materialDal = new MaterialsDal();
+export default MaterialsDal;

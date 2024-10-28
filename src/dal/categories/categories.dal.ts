@@ -1,29 +1,20 @@
-type CategoryDalType = {
+import BaseDALService from "../baseDal";
+
+export type CategoryDalType = {
     value: string
     displayName: string
 }
 
-class CategoryDal {
+class CategoryDal extends BaseDALService<CategoryDalType> {
 
-    constructor(){
+    protected getValueKey(): string {
+        return 'id'
+    }
 
-    };
+    protected getDisplayValueKey(): string {
+        return 'displayName'
+    }
 
-
-    fromDalSelectDropDowns( data: Array<CategoryDalType>, callback: (...args: any) => void): void {
-
-        const defaultValue: CategoryDalType = {
-            value: '',
-            displayName: 'Select an option'
-        }
-
-        data.unshift(defaultValue);
-
-        callback(data);
-
-    };
 };
 
-const categoryDal = new CategoryDal();
-
-export default categoryDal;
+export default CategoryDal;

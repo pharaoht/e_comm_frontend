@@ -1,18 +1,41 @@
-interface ApiData {
-    id: string;
-    name: string;
-}
+abstract class BaseDALService<T> {
 
-interface DropdownItem {
-    value: string;
-    displayName: string;
-}
+    protected abstract getValueKey(): string;
+    protected abstract getDisplayValueKey(): string;
 
-class BaseDal<T extends ApiData, U extends DropdownItem> {
-    fromDal(data: Array<T>): Array<U> {
-        return data.map((item) => ({
-            value: item.id,
-            displayName: item.name
-        })) as Array<U>;
+    useDal(isDropDown: boolean, callback: (...args: any) => void, data: any[]){
+
+        if(isDropDown){
+
+            const dal = this.fromDalSelectDropDowns(data);
+
+            const state = callback(dal);
+
+            return state;
+        }
+
+        const state = callback(data);
+
+        return state;
     }
+
+    protected fromDalSelectDropDowns(data: any[]){
+
+        const valueKey = this.getValueKey();
+        const displayValueKey = this.getDisplayValueKey();
+
+        const dal = data.map((itm) => {
+
+            return {
+                value: itm[valueKey],
+                displayName: itm[displayValueKey]
+            }
+        });
+
+        return dal;
+
+    }
+
 }
+
+export default BaseDALService;

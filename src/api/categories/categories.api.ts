@@ -1,17 +1,19 @@
-import categoryDal from '@/dal/categories/categories.dal';
+import categoryDal, { CategoryDalType } from '@/dal/categories/categories.dal';
 import BaseApi, { HttpRequestConfig } from '../base.api';
 import axios from 'axios';
+import CategoryDal from '@/dal/categories/categories.dal';
 
 export type categoryApiArgs = {
     genderId?: number | string
     categoryId?: number | string
     callback: (...args: any) => void
+    isDropdown?: boolean
 };
 
-class CategoryApi extends BaseApi {
+class CategoryApi extends BaseApi<CategoryDalType> {
 
     constructor(){
-        super('categories', axios)
+        super('categories', axios, new CategoryDal())
     }
 
     async getAllCategoriesByGenderId({ genderId, callback }: categoryApiArgs){
@@ -54,7 +56,7 @@ class CategoryApi extends BaseApi {
 
             const result = await this.httpRequest({
                 requestConfig: reqObj,
-                callback: (data) => categoryDal.fromDalSelectDropDowns(data, callback)
+                callback: callback,
             });
  
             return result;
@@ -80,7 +82,7 @@ class CategoryApi extends BaseApi {
 
             const result = await this.httpRequest({
                 requestConfig: reqObj,
-                callback: (data) => categoryDal.fromDalSelectDropDowns(data, callback)
+                callback: callback,
             });
  
             return result;

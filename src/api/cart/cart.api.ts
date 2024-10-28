@@ -1,3 +1,4 @@
+import CartDal, { CartDalType } from "@/dal/cart/cart.dal";
 import BaseApi, { HttpRequestConfig } from "../base.api";
 import axios from "axios";
 
@@ -10,10 +11,10 @@ export type cartApiArgs = {
     callback: (...args: any) => void
 }
 
-class CartApi extends BaseApi {
+class CartApi extends BaseApi<CartDalType> {
 
     constructor(){
-        super('cart', axios)
+        super('cart', axios, new CartDal())
     }
 
     async addToCart({ body, callback }: cartApiArgs){

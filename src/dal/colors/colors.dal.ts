@@ -1,3 +1,5 @@
+import BaseDALService from "../baseDal"
+
 type ColorsDalType = {
     id: string
     productId: string
@@ -6,29 +8,15 @@ type ColorsDalType = {
     colorCode: string
 }
 
-class ColorsDal {
+class ColorsDal extends BaseDALService<ColorsDalType>{
 
-    constructor(){
-
+    protected getValueKey(): string {   
+        return 'colorId'
     };
 
-
-    fromDalSelectDropDowns( data: ColorsDalType[], callback: (...args: any) => void): void {
-
-        const dal = data.map((itm) => {
-
-            return {
-                value: itm.colorId,
-                displayName: itm.colorName,
-                colorCode: itm.colorCode
-            }
-        });
-
-        callback(dal);
-
+    protected getDisplayValueKey(): string {
+        return 'colorName'
     };
 };
 
-const colorsDal = new ColorsDal();
-
-export default colorsDal;
+export default ColorsDal;

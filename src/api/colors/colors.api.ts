@@ -1,16 +1,18 @@
 import BaseApi, { HttpRequestConfig } from "../base.api";
 import axios from "axios";
-import colorsDal from "@/dal/colors/colors.dal";
+import ColorsDal from "@/dal/colors/colors.dal";
+import { ColorType } from "@/types/color/color.type";
 
 export type colorsApiArgs = {
     productId?: string | null | string[]
     callback: (...args: any) => void
+    isDropDown?: boolean
 }
 
-class ColorsApi extends BaseApi {
+class ColorsApi extends BaseApi<ColorType> {   
 
     constructor(){
-        super('colors', axios)
+        super('colors', axios, new ColorsDal());
     }
 
     async getColorsByProductId({ productId, callback }: colorsApiArgs){
@@ -31,9 +33,11 @@ class ColorsApi extends BaseApi {
         return result;
     };
 
-    async getColors({ callback }: colorsApiArgs){
+    async getColors({ callback, isDropDown }: colorsApiArgs){
 
         const url = this.findHostName();
+
+        const useDal = isDropDown || false;
 
         const reqObj: HttpRequestConfig = {
             url: url,
@@ -43,7 +47,8 @@ class ColorsApi extends BaseApi {
 
         const result = await this.httpRequest({
             requestConfig: reqObj,
-            callback: (data) => colorsDal.fromDalSelectDropDowns(data, callback)
+            callback: callback,
+            isDropDown: useDal
         });
 
         return result;

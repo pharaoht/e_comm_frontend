@@ -1,7 +1,7 @@
-import { useRouter, useSearchParams } from 'next/navigation';
 import styles from './filter.module.css';
 import Sort from './sort/sort';
-import FilterBtn from './filter/filter';
+import FilterBtn from './filterbtn/filter';
+import useUrlParams from '@/hooks/useParams';
 
 const paramKey = 'sortBy';
 const paramKeyColor = 'color';
@@ -10,31 +10,35 @@ const paramKeyMaterial = 'material';
 
 const Filter = () => {
 
-    const router = useRouter();
+    const urlParams = useUrlParams();
 
-    const searchParams = useSearchParams();
+    const sortByValues = urlParams.getParam(paramKey);
 
-    const sortByValues = searchParams.get(paramKey);
+    const colorParamValues = urlParams.getParam(paramKeyColor);
 
-    const updateQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const sizeParamValues = urlParams.getParam(paramKeySize);
 
-        const value = event.target.value;
+    const materialParamValues = urlParams.getParam(paramKeyMaterial);
 
-        const params = new URLSearchParams(window.location.search);
+    const ob = {
+        [paramKeyColor]: colorParamValues,
+        [paramKeySize]: sizeParamValues,
+        [paramKeyMaterial]: materialParamValues
+    }
 
-        params.set(paramKey, value);
-       
-        router.replace(`${window.location.pathname}?${params.toString()}`);
+    const updateQuery = (value: string, paramKey: string) => {
 
+        urlParams.setParam(paramKey, value);
     };
-
-    
-
 
     return (
         <div className={styles.container}>
-            <Sort formChangeHandler={updateQuery} paramValue={sortByValues || ''}/>
-            <FilterBtn/>
+            <Sort formChangeHandler={updateQuery} paramKey={sortByValues}/>
+            <FilterBtn 
+                formChangeHandler={updateQuery}
+                optionalParam={ob}
+
+            />
         </div>
     )
 };

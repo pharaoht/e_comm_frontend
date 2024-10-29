@@ -3,14 +3,23 @@ import styles from './sort.module.css';
 import { h } from './consts/conts.sort';
 import RadioFormInput from '@/components/inputs/radio/radio.input';
 
+
 interface SortProps {
     formChangeHandler: (...args: any) => void
-    paramValue: string;
+    paramKey: string;
 }
 
-const Sort = ({ formChangeHandler, paramValue }: SortProps) => {
+const Sort = ({ formChangeHandler, paramKey }: SortProps) => {
 
     const [ isOpen, setIsOpen ] = useState<boolean>(false);
+
+    const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+        const value = event.target.value;
+
+        formChangeHandler(value, paramKey);
+
+    }
 
     return (
         <div className={styles.container}>
@@ -31,32 +40,32 @@ const Sort = ({ formChangeHandler, paramValue }: SortProps) => {
                                 <li className={styles.liContainer} >
                                     <RadioFormInput 
                                         formObject={h.default}
-                                        formChangeHandler={formChangeHandler}
+                                        formChangeHandler={onChangeHandler}
                                         isDefaultChecked={true}
-                                        isChecked={paramValue == h.default.value}
+                                        isChecked={paramKey == h.default.value}
                                     />
                                 </li>
                                 <li className={styles.liContainer}>
                                     <RadioFormInput 
                                         formObject={h.newest}
-                                        formChangeHandler={formChangeHandler}
-                                        isChecked={paramValue == h.newest.value}
+                                        formChangeHandler={onChangeHandler}
+                                        isChecked={paramKey == h.newest.value}
 
                                     />
                                 </li>
                                 <li className={styles.liContainer}>
                                     <RadioFormInput 
                                         formObject={h.lowPrice}
-                                        formChangeHandler={formChangeHandler}
-                                        isChecked={paramValue == h.lowPrice.value}
+                                        formChangeHandler={onChangeHandler}
+                                        isChecked={paramKey == h.lowPrice.value}
 
                                     />
                                 </li>
                                 <li className={styles.liContainer}>
                                     <RadioFormInput 
                                         formObject={h.highPrice}
-                                        formChangeHandler={formChangeHandler}
-                                        isChecked={paramValue == h.highPrice.value}
+                                        formChangeHandler={onChangeHandler}
+                                        isChecked={paramKey == h.highPrice.value}
                                     />
                                 </li>
                             </ul>

@@ -24,8 +24,7 @@
 
 .radioContainer{
     list-style: none;
-    max-height: 300px;
-    overflow-y: scroll;
+
 }
 
 .liContainer{
@@ -35,6 +34,7 @@
 .centerCb {
     display: flex;
     align-items: center;
+    
 }
 
 .checkbox {
@@ -44,6 +44,8 @@
 .checkBxContainer{
     list-style: none;
     margin: 5px 10px;
+    max-height: 200px;
+    overflow-y: scroll;
 }
 
 .legend{

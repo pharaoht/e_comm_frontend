@@ -7,7 +7,7 @@ const useUrlParams = () => {
 
     const searchParams = useSearchParams();
 
-    const getParam = (key: string): string | null => searchParams.get(key);
+    const getParam = (key: string): string => searchParams.get(key) || '';
 
     const setParam = (key: string, value: string): void => {
 

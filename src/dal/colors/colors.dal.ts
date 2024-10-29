@@ -1,3 +1,4 @@
+import { FilterParams } from "@/components/filter/filterbtn/filter"
 import BaseDALService from "../baseDal"
 
 type ColorsDalType = {
@@ -6,6 +7,14 @@ type ColorsDalType = {
     colorId: string
     colorName: string
     colorCode: string
+}
+
+export interface FilterData {
+    value: string;
+    displayName: string;
+    colorCode?: string;
+    id: string;
+    radioName: keyof FilterParams;
 }
 
 class ColorsDal extends BaseDALService<ColorsDalType>{
@@ -19,7 +28,7 @@ class ColorsDal extends BaseDALService<ColorsDalType>{
     };
 
     //overriding method from baseDal
-    protected fromDalSelectDropDowns(data: ColorsDalType[]): { value: any; displayName: any; }[] {
+    protected fromDalSelectDropDowns(data: ColorsDalType[]): FilterData[] {
         
         const dal = data.map((itm) => {
 
@@ -28,7 +37,7 @@ class ColorsDal extends BaseDALService<ColorsDalType>{
                 displayName: itm.colorName,
                 colorCode: itm.colorCode,
                 id: itm.id,
-                radioName:'color'
+                radioName:'color' as keyof FilterParams
             }
         });
 

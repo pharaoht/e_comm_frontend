@@ -25,7 +25,7 @@ const Carousel = ({ images }: CarouselProps ) => {
                 width={1000} 
                 alt="photo_"
             />
-            <button className={`${styles.prevBtn} ${styles.btn}`} onClick={nextImage}>{'>'}</button>
+            <button type='button' className={`${styles.prevBtn} ${styles.btn}`} onClick={nextImage}>{'>'}</button>
         </div> 
     )
 };

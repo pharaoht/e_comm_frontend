@@ -80,6 +80,7 @@ const ProductPage = () => {
 
     }, [ id ]);
 
+
     return (
         <form className={styles.container} onSubmit={addToCartHandler}>
             <div className={styles.leftSide}>

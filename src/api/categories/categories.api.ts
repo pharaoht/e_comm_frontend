@@ -1,4 +1,4 @@
-import categoryDal, { CategoryDalType } from '@/dal/categories/categories.dal';
+import { CategoryDalType } from '@/dal/categories/categories.dal';
 import BaseApi, { HttpRequestConfig } from '../base.api';
 import axios from 'axios';
 import CategoryDal from '@/dal/categories/categories.dal';
@@ -42,11 +42,13 @@ class CategoryApi extends BaseApi<CategoryDalType> {
         }
     };
 
-    async getCategoriesByGenderId({ genderId, callback}: categoryApiArgs){
+    async getCategoriesByGenderId({ genderId, callback, isDropdown }: categoryApiArgs){
 
         try{
 
             const url = this.findHostName();
+
+            const useDal = isDropdown || false;
 
             const reqObj: HttpRequestConfig = {
                 url: `${url}/${genderId}`,
@@ -57,6 +59,7 @@ class CategoryApi extends BaseApi<CategoryDalType> {
             const result = await this.httpRequest({
                 requestConfig: reqObj,
                 callback: callback,
+                isDropDown: useDal,
             });
  
             return result;
@@ -68,11 +71,13 @@ class CategoryApi extends BaseApi<CategoryDalType> {
         }
     }
 
-    async getSubCategoriesByCategoryId({ categoryId, genderId, callback}: categoryApiArgs){
+    async getSubCategoriesByCategoryId({ categoryId, genderId, callback, isDropdown}: categoryApiArgs){
 
         try{
 
             const url = this.findHostName();
+
+            const useDal = isDropdown || false;
 
             const reqObj: HttpRequestConfig = {
                 url: `${url}/${genderId}/${categoryId}`,
@@ -83,6 +88,7 @@ class CategoryApi extends BaseApi<CategoryDalType> {
             const result = await this.httpRequest({
                 requestConfig: reqObj,
                 callback: callback,
+                isDropDown: useDal,
             });
  
             return result;

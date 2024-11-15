@@ -44,7 +44,7 @@ const FilterBtn = ({ formChangeHandler, optionalParam }: FilterProps) => {
     const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         
         const value = event.target.value;
-        const name = event.target.name as FilterKey
+        const name = event.target.name as FilterKey;
         
         setFilterParams(prevState => {
 

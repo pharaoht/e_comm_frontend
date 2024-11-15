@@ -15,6 +15,13 @@ class CategoryDal extends BaseDALService<CategoryDalType> {
         return 'displayName'
     }
 
+    protected fromDalSelectDropDowns(data: any[]): { value: any; displayName: any; }[] {
+        
+        const dal = [{value: '', displayName: 'Select'}, ...data]
+
+        return dal;
+    }
+
 };
 
 export default CategoryDal;

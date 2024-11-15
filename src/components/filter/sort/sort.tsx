@@ -17,7 +17,7 @@ const Sort = ({ formChangeHandler, paramKey }: SortProps) => {
 
         const value = event.target.value;
 
-        formChangeHandler(value, paramKey);
+        formChangeHandler(value, 'sortBy');
 
     }
 

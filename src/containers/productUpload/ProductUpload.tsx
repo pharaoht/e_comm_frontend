@@ -74,7 +74,6 @@ const ProductUpload = () => {
         const value = event.target.value;
         const file = event.target instanceof HTMLInputElement && event.target.files ? event.target.files : null;
         
-        console.log(event.target.value, event.target.name)
         setFormState(prevState => {
             const updatedArray = formState.colorIds.includes(value)
                 ? formState.colorIds.filter(itm => itm !== value)
@@ -129,7 +128,8 @@ const ProductUpload = () => {
 
             categoryApi.getCategoriesByGenderId({
                 genderId: formState.genderId,
-                callback: setCategories
+                callback: setCategories,
+                isDropdown: true
             });
         }
 
@@ -156,7 +156,8 @@ const ProductUpload = () => {
             categoryApi.getSubCategoriesByCategoryId({
                 categoryId: formState.catId,
                 genderId: formState.genderId,
-                callback: setSubCategories
+                callback: setSubCategories,
+                isDropdown: true
             });
              
         };
@@ -167,7 +168,7 @@ const ProductUpload = () => {
 
 
     },[formState.catId]);
-    console.log(categories)
+
     return (
         <form onSubmit={handleSubmit} encType='multipart/form-data'>
             <div>

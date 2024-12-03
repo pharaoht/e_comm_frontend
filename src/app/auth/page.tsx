@@ -1,9 +1,8 @@
-import { useRouter } from "next/navigation";
+
 import { FormEvent } from "react";
 
 const Auth = () => {
 
-    const router = useRouter();
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 

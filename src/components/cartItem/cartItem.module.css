@@ -1,0 +1,33 @@
+.container{
+    display: flex;
+    gap: 10px;
+}
+
+.leftSide{
+}
+
+.rightSide{
+    display: flex;
+    flex-direction: column;
+}
+
+.details {
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* Adds space between rows */
+}
+
+.detailLabel{
+    width: 75px;
+}
+
+.detailRow {
+    display: flex;
+    font-size: 14px;
+}
+
+@media (max-width: 700px) {
+
+    
+
+}

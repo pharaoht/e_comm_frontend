@@ -1,6 +1,7 @@
 .container{
     display: flex;
     gap: 10px;
+    cursor: default;
 }
 
 .leftSide{
@@ -24,6 +25,36 @@
 .detailRow {
     display: flex;
     font-size: 14px;
+}
+
+.qtyContainer{
+    display: flex; 
+    gap: 5px;
+}
+
+.inputVal { 
+    width: 20px; 
+    text-align: center; 
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    padding: 2px; 
+}
+
+.qtyButton { 
+    width: 15px;
+    border: none; 
+    cursor: pointer; 
+    display: flex;
+    align-items: center; 
+    justify-content: center;  
+}
+
+.headerThree{
+    cursor: pointer;
+}
+
+.headerThree:hover{
+    text-decoration: underline;
 }
 
 @media (max-width: 700px) {

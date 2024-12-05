@@ -3,6 +3,7 @@ import styles from './cart.module.css';
 
 export type CartType = {
     cartExpiration: string
+    cartId: string
     colorId: string
     colorName: string
     id: string

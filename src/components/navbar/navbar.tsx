@@ -16,6 +16,8 @@ const Navbar = () => {
 
     const [ showCart, setShowCart ] = useState<boolean>(false);
 
+    const [isLargeScreen, setIsLargeScreen] = useState(false);
+
     const [ cart, setCart ] = useState<CartType[]>([]);
 
     const getCart = async () => {
@@ -37,12 +39,19 @@ const Navbar = () => {
 
                 <li key={itm.href} className={`${styles.liItem} `} 
                     onClick={itm.onClickHandler}
-                    onMouseEnter={itm.href === '/cart' ? () => setShowCart(true) : ()=> {}}
+                    onMouseEnter={itm.href === '/cart' ? () => isLargeScreen && setShowCart(true) : ()=> {}}
                     
                 >
                     <Link href={itm.href}>
                         {
-                            itm.icon != null && <span className={styles.icon}> {itm.icon} </span>
+                            itm.icon != null && (
+                            <div className={styles.iconContainer}>
+                                <span className={styles.icon}> {itm.icon} </span>
+                                { itm.href == '/cart' && cart.length > 0 && !isLargeScreen &&
+                                    <span className={styles.badge}>{cart[0].totalItems}</span>
+                                }
+                            </div>
+                        )
                         }
                         <span className={`${styles.labelSpan} ${styles.hide}`} >
                             {itm.label}
@@ -98,9 +107,22 @@ const Navbar = () => {
 
     }, []);
 
+    useEffect(() => { 
+    
+        const handleResize = () => { 
+            setIsLargeScreen(window.innerWidth >= 700); 
+        }; 
+
+        handleResize();
+
+        window.addEventListener('resize', handleResize); 
+        
+        return () => window.removeEventListener('resize', handleResize); 
+    }, []);
+
 
     return (
-        <nav className={styles.container} onMouseLeave={() => setShowCart(false)} >
+        <nav className={styles.container} onMouseLeave={() => isLargeScreen && setShowCart(false)} >
             <div className={styles.containerChild}>
                 <ul className={styles.ulContainer}>
                     <li className={`${styles.liItem} ${styles.iconConditional}`}>

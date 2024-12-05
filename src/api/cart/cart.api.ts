@@ -7,8 +7,10 @@ export type cartApiArgs = {
         productId: string
         sizeId: string
         colorId: string
+        cartId?: string
     }
     callback: (...args: any) => void
+    params?: string
 }
 
 class CartApi extends BaseApi<CartDalType> {
@@ -67,6 +69,32 @@ class CartApi extends BaseApi<CartDalType> {
 
         }
 
+    }
+
+    async deleteCart({ params, callback }: cartApiArgs){
+
+        try {
+
+            const url = this.findHostName();
+
+            const reqObj: HttpRequestConfig = {
+                url: `${url}?${params}`,
+                method: 'DELETE',
+                withCredentials: true
+            };
+
+            const result = await this.httpRequest({ 
+                requestConfig: reqObj,
+                callback: callback
+            });
+
+            return result;
+
+        }
+        catch(error){
+
+            console.error(this.getErrorStatus());
+        }
     }
 };
 

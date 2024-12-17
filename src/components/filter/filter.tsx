@@ -27,7 +27,7 @@ const Filter = () => {
     }
 
     const updateQuery = (value: string, paramKey: string) => {
-
+        
         urlParams.setParam(paramKey, value);
     };
 

@@ -56,7 +56,7 @@ const CartPage = () => {
         <div className={styles.section}>
             <div className={styles.left}>
                 {
-                  cartItems.length > 0 && (
+                  cartItems.length > 0 ? (
 
                     cartItems.map((itm, idx) => (
                       <CartItem 
@@ -66,6 +66,8 @@ const CartPage = () => {
                       />
                     ))
                   )
+                  :
+                  'Nothing in this cart... yet!'
                 }
             </div>
           <div className={styles.right}>
@@ -75,7 +77,7 @@ const CartPage = () => {
               </dl>
               <dl className={styles.dlContainer}>
                   <dt>Order Value:</dt>
-                  <dd>0.00</dd>
+                  <dd>{cartItems[0]?.orderValue || '0.00'}</dd>
               </dl>
               <dl className={styles.dlContainer}>
                   <dt>Discount:</dt>
@@ -83,12 +85,12 @@ const CartPage = () => {
               </dl>
               <dl className={styles.dlContainer}>
                   <dt>Delivery fee:</dt>
-                  <dd>0.00</dd>
+                  <dd>{cartItems[0]?.deliveryFee || '0.00'}</dd>
               </dl>
 
               <dl className={styles.dlContainer}>
                   <dt>Total:</dt>
-                  <dd>{cartItems[0]?.total ? cartItems[0]?.total : 0.00 }</dd>
+                  <dd>{cartItems[0]?.total ? cartItems[0]?.total : '0.00' }</dd>
               </dl>
 
               <div className={styles.btnContainer}>

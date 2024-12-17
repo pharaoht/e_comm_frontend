@@ -19,7 +19,9 @@ export type CartType = {
     imageUrl: string
     userID: string
     subTotal: string
+    deliveryFee: string
     totalItems: string
+    orderValue: string
 }
 
 interface CartProps {

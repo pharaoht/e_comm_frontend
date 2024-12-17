@@ -120,6 +120,7 @@ const FilterBtn = ({ formChangeHandler, optionalParam }: FilterProps) => {
 
     useEffect(() => formChangeHandler(filterParams.material, 'material'), [filterParams.material])
     
+    console.log(filterParams.color)
     return (
         <div className={styles.container}>
             <button

@@ -108,6 +108,7 @@ const SideBar = ({ categories }: sideBarProps) => {
 
             if(value !== '') params.set(key, value);
         })
+
         
         if (!params.toString()) {
             router.push(window.location.pathname);

@@ -7,6 +7,13 @@ const useUrlParams = () => {
 
     const searchParams = useSearchParams();
 
+    const reset = () => {
+
+        router.push(window.location.pathname);
+
+        return undefined;
+    }
+
     const getParam = (key: string): string => searchParams.get(key) || '';
 
     const setParam = (key: string, value: string): void => {
@@ -49,7 +56,8 @@ const useUrlParams = () => {
     return {
         getParam,
         setParam,
-        removeParam
+        removeParam,
+        reset,
     }
 };
 

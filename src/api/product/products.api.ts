@@ -20,6 +20,8 @@ export type productApiArgs = {
     }
 }
 
+
+
 class ProductApi extends BaseApi<ProductDalType> {
 
     constructor(){
@@ -37,7 +39,7 @@ class ProductApi extends BaseApi<ProductDalType> {
                 method: 'GET',
                 withCredentials: true,
             }
- 
+
             const result = await this.httpRequest({
                 requestConfig: reqObj,
                 callback: callback
@@ -48,6 +50,8 @@ class ProductApi extends BaseApi<ProductDalType> {
         catch(error){
             console.error(this.getErrorStatus());
         }
+
+        
     }
 
     async getProducts({ genderId, queryParams, callback }: productApiArgs){

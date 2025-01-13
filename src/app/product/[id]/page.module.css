@@ -1,23 +1,26 @@
 .container {
-    display: flex;
     margin-top: 100px;
     padding: 10px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    position: relative;
 }
 
 .leftSide {
-    width: 50%;
+
 }
 
 .rightSide {
-    width: 50%;
+
     padding: 100px;
     display: flex;
     flex-direction: column;
     height: 100vh;
     gap: 10px;
-    position: -webkit-sticky; /* Safari support */
     position: sticky;
-    top: 100px; /* Adjust based on your header height */
+    align-self: start;
+    top:0; /* Adjust based on your header height */
+ 
 }
 
 .grid {

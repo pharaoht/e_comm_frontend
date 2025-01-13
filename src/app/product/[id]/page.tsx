@@ -14,6 +14,7 @@ import { sizeApi } from '@/api/sizes/sizes.api';
 import { colorsApi } from '@/api/colors/colors.api';
 import { productApi } from '@/api/product/products.api';
 import { initialProductState, Product } from '@/containers/productContainer/types/products.types';
+import Accordion from '@/components/accordion/Accordion';
 
 const ProductPage = () => {
 
@@ -34,6 +35,8 @@ const ProductPage = () => {
     const [ sizes, setSizes ] = useState<Array<SizeType>>([]);
 
     const [ colors, setColors ] = useState<Array<ColorType>>([]);
+
+    const [ pageLoading, setPageLoading ] = useState<boolean>(true);
     
     const addToCartHandler = async ( e: FormEvent<HTMLFormElement> ) => {
 
@@ -64,12 +67,18 @@ const ProductPage = () => {
 
         if(!id) return undefined;
 
+        setPageLoading(true);
+
         Promise.all([
             imagesApi.getImagesFromProductId({ id: id, callback: setImages }),
             productApi.getProductById({ productId: id, callback: setProduct }),
             sizeApi.getSizes({ callback: setSizes }),
             colorsApi.getColorsByProductId({  productId: id, callback: setColors }),
-        ]);
+        ])
+        .then(() => {
+            
+            imagesApi.preLoadImages(images, setPageLoading)
+        });
 
         return () => {
             productApi.abort();
@@ -79,9 +88,18 @@ const ProductPage = () => {
         }
 
     }, [ id ]);
+    
+    if(pageLoading){
 
+        return (
+            <div className={styles.container}>
+                
+            </div>
+        )
+    }
 
     return (
+
         <form className={styles.container} onSubmit={addToCartHandler}>
             <div className={styles.leftSide}>
                 <Gallery images={images}/>
@@ -107,10 +125,9 @@ const ProductPage = () => {
                     <button type='submit'>Add to cart</button>
                 </div>
                 <div>
-                    <h3>Description</h3>
-                    <p style={{whiteSpace: 'pre-wrap' }}>
-                        {product.desc}
-                    </p>
+                    <Accordion 
+                        productData={[{title: 'hi', description: 'hi'}, { title: 'yes', description: 'noooo'}]}
+                    />
                 </div>
             </div>
         </form>

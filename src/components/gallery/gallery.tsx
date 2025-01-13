@@ -20,7 +20,9 @@ const Gallery = ({ images }: GalleryProps) => {
                             <Image 
                                 src={`${baseUrl}${photo.url}`} 
                                 alt={`product_photo_${idx}`} 
-                                height={1000} width={1000} quality={100} />
+                                height={1000} width={1000} quality={100} 
+                                loading='lazy'
+                                />
                         </li>
                     ))
                 )

@@ -45,11 +45,10 @@ class BaseApi<T> {
     }
 
     public async httpRequest({ requestConfig, callback, isDropDown = false, }: httpType){
-
+        
         try {
 
             this.isLoading = true;
-
             this.error = '';
 
             const response = await this.httpClient({
@@ -79,7 +78,6 @@ class BaseApi<T> {
            
         }
         finally{
-
             this.isLoading = false;
             this.abortController = new AbortController();
         }
